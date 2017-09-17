@@ -1,9 +1,46 @@
-<p>
-  rule-dashboard works!
-</p>
+<div class="row">
+ <h3>Dashboard</h3>
+</div>
 
-<span class="done">
+<div class="row">
+
+  <md-card fxFlex="95%">
+    <md-table #table [dataSource]="dataSource">
+
+      <!-- Position Column -->
+      <ng-container mdColumnDef="position">
+        <md-header-cell *mdHeaderCellDef> No. </md-header-cell>
+        <md-cell *mdCellDef="let element"> {{element.position}} </md-cell>
+      </ng-container>
+
+      <!-- Name Column -->
+      <ng-container mdColumnDef="name">
+        <md-header-cell *mdHeaderCellDef> Name </md-header-cell>
+        <md-cell *mdCellDef="let element"> {{element.name}} </md-cell>
+      </ng-container>
+
+      <!-- Weight Column -->
+      <ng-container mdColumnDef="weight">
+        <md-header-cell *mdHeaderCellDef> Weight </md-header-cell>
+        <md-cell *mdCellDef="let element"> {{element.weight}} </md-cell>
+      </ng-container>
+
+      <!-- Color Column -->
+      <ng-container mdColumnDef="symbol">
+        <md-header-cell *mdHeaderCellDef> Symbol </md-header-cell>
+        <md-cell *mdCellDef="let element"> {{element.symbol}} </md-cell>
+      </ng-container>
+
+      <md-header-row *mdHeaderRowDef="displayedColumns"></md-header-row>
+      <md-row *mdRowDef="let row; columns: displayedColumns;"></md-row>
+    </md-table>
+
+  </md-card>
+
+  <span class="done">
     <button md-fab (click)="newRule()">
-      <md-icon>check circle</md-icon>
+      <md-icon>add circle</md-icon>
     </button>
   </span>
+
+</div>

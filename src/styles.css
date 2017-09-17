@@ -1,3 +1,4 @@
+@import "~bootstrap/dist/css/bootstrap.min.css";
 @import '~https://fonts.googleapis.com/icon?family=Material+Icons';
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
@@ -10,8 +11,6 @@ html, body {
 md-sidenav-container {
   position: fixed;
   height: calc(100vh - 64px);
-  width: 100%;
-  min-width: 100%;
 }
 
 md-sidenav {
@@ -34,9 +33,8 @@ md-toolbar-row {
   color: white;
 }
 
-
-.my-content {
-  background-color: bisque;
+.container-fluid {
+  min-height: 100%;
 }
 
 .item {

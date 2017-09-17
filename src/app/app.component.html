@@ -5,17 +5,14 @@
     <md-sidenav #sidenav mode="side" opened="true">
       <md-nav-list>
         <a md-list-item class="sidenav-link" [routerLink]="['/rules/dashboard']">
-          <md-icon md-list-icon>account_balance</md-icon>
-          <span class="title" md-line>comp1</span>
+          <md-icon md-list-icon>dashboard</md-icon>
+          <span class="title" md-line>Dashboard</span>
         </a>
       </md-nav-list>
     </md-sidenav>
 
-  <div class="my-content"
-       fxLayout.xs="column"
-       fxLayoutAlign="center"
-       fxLayoutGap="10px"
-       fxLayoutGap.xs="0">
+  <div class="container-fluid">
     <router-outlet></router-outlet>
   </div>
+
 </md-sidenav-container>
