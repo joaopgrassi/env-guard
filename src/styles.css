@@ -10,7 +10,6 @@ html, body {
 md-sidenav-container {
   position: fixed;
   height: calc(100vh - 64px);
-  height: calc(100vh - 64px);
   width: 100%;
   min-width: 100%;
 }
@@ -20,9 +19,8 @@ md-sidenav {
 }
 
 md-card {
-  max-width: 80%;
+  max-width: 90%;
   margin: 2em auto;
-  text-align: center;
 }
 
 md-toolbar-row {
@@ -34,4 +32,25 @@ md-toolbar-row {
   bottom: 20px;
   right: 20px;
   color: white;
+}
+
+
+.my-content {
+  background-color: bisque;
+}
+
+.item {
+  height:200px;
+}
+
+.item-1 {
+  background-color: lightblue ;
+}
+
+.item-2 {
+  background-color: green ;
+}
+
+.item-3 {
+  background-color: red ;
 }
