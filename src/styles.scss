@@ -1,5 +1,4 @@
 @import "~bootstrap/dist/css/bootstrap.min.css";
-@import '~https://fonts.googleapis.com/icon?family=Material+Icons';
 @import '~@angular/material/prebuilt-themes/indigo-pink.css';
 
 html, body {
@@ -51,4 +50,21 @@ md-toolbar-row {
 
 .item-3 {
   background-color: red ;
+}
+
+.mat-elevation-z4 {
+  position: relative;
+  z-index: 2;
+}
+
+.app-primary-header {
+  padding-left: 20px;
+
+  h1 {
+    font-size: 30px;
+    font-weight: 300;
+    margin: 0;
+    padding: 20px 8px;
+    font-size: 20px;
+  }
 }
