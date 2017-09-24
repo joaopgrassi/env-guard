@@ -36,22 +36,6 @@ md-toolbar-row {
   min-height: 100%;
 }
 
-.item {
-  height:200px;
-}
-
-.item-1 {
-  background-color: lightblue ;
-}
-
-.item-2 {
-  background-color: green ;
-}
-
-.item-3 {
-  background-color: red ;
-}
-
 .mat-elevation-z4 {
   position: relative;
   z-index: 2;
@@ -67,4 +51,9 @@ md-toolbar-row {
     padding: 20px 8px;
     font-size: 20px;
   }
+}
+
+/* FORMS */
+.md-input-full {
+  width: 100%;
 }

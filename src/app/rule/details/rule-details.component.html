@@ -1,6 +1,49 @@
-<p>
-  rule-details works!
+<div class="app-primary-header">
+  <h1>New rule</h1>
+</div>
 
-</p>
+<div class="row">
 
-<p>Is new rule? {{newRule}}</p>
+  <md-card fxFlex="95%">
+
+    <form [formGroup]="ruleForm" novalidate>
+
+      <!-- rule name -->
+      <div class="row mb-1">
+        <div class="col-lg-5 col-md-3 col-sm-12">
+          <md-form-field class="md-input-full">
+            <input mdInput placeholder="Rule alias" formControlName="name">
+            <md-error *ngIf="ruleForm.controls.name.errors">
+              Rule alias is <strong>required</strong>
+            </md-error>
+          </md-form-field>
+        </div>
+      </div>
+
+      <!-- URL -->
+      <div class="row mb-1">
+        <div class="col-lg-1 col-md-12 col-sm-12">
+          <md-select placeholder="Operator" formControlName="operator">
+            <md-option *ngFor="let key of operatorKeys" [value]="key">{{operatorRules[key]}}</md-option>
+          </md-select>
+        </div>
+        <div class="col-lg-4 col-md-12 col-sm-12">
+          <md-form-field class="md-input-full">
+            <input mdInput placeholder="URL" formControlName="url">
+            <md-error *ngIf="ruleForm.controls.url.errors">
+              URL is <strong>required</strong>
+            </md-error>
+          </md-form-field>
+        </div>
+      </div>
+
+    </form>
+
+    <div class="mt-2">
+      <button md-raised-button color="primary" (click)="save()">Save</button>
+      <button md-raised-button>Cancel</button>
+    </div>
+
+  </md-card>
+
+</div>
