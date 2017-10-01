@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Production",
+    "key": "prod",
+    "path": "icons/red.png"
+  },
+  {
+    "name": "Staging",
+    "key": "staging",
+    "path": "icons/blue.png"
+  },
+  {
+    "name": "Development",
+    "key": "dev",
+    "path": "icons/green.png"
+  }
+]

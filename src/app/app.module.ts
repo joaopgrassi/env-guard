@@ -2,16 +2,18 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
-import { MaterialModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppComponent } from './app.component';
+import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { RouterModule } from '@angular/router';
+
+import { AppComponent } from './app.component';
 import { HeaderComponent } from './_layout/';
 import { RuleDashboardComponent } from './rule/dashboard/rule-dashboard.component';
-import { RouterModule } from '@angular/router';
 import { rootRouterConfig } from './app-routes';
 import { RuleDetailsComponent } from './rule/details/rule-details.component';
 import { AppMaterialModule } from './app-material.module';
+import { RuleService } from './rule/common/rule.service';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,7 @@ import { AppMaterialModule } from './app-material.module';
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
     HttpModule,
@@ -30,9 +33,7 @@ import { AppMaterialModule } from './app-material.module';
     BrowserAnimationsModule,
     RouterModule.forRoot(rootRouterConfig, { useHash: true })
   ],
-  providers: [],
+  providers: [RuleService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
-
-

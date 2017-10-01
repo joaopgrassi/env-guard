@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { OperatorRules } from '../common/rule-model';
+import { Icon, OperatorRules } from '../common/rule-model';
+import { RuleService } from '../common/rule.service';
 
 @Component({
   selector: 'app-rule-details',
@@ -14,9 +15,11 @@ export class RuleDetailsComponent implements OnInit {
   ruleForm: FormGroup;
   operatorKeys: any;
   operatorRules = OperatorRules;
+  icons: Icon[];
 
   constructor(private route: ActivatedRoute,
-              private formBuilder: FormBuilder) {
+              private formBuilder: FormBuilder,
+              private ruleService: RuleService) {
 
     const id: string = route.snapshot.params.id;
 
@@ -26,20 +29,25 @@ export class RuleDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.operatorKeys =  Object.keys(OperatorRules).map(x => x);
+    this.operatorKeys = Object.keys(OperatorRules).map(x => x);
+    this.ruleService.getDefaultIcons().subscribe((resp: Icon[]) => {
+      this.icons = resp;
+    });
+
     this.setUpForm();
   }
 
   save() {
-    const test = this.ruleForm;
   }
 
   private setUpForm() {
     this.ruleForm = this.formBuilder.group({
       name: ['', [Validators.required]],
       url: ['', [Validators.required]],
-      operator: ['', [Validators.required]]
+      operator: ['', [Validators.required]],
+      title: [''],
+      icon: [''],
+      iconUrl: ['']
     });
   }
-
 }
