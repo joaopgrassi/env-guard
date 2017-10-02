@@ -14,6 +14,7 @@ import { rootRouterConfig } from './app-routes';
 import { RuleDetailsComponent } from './rule/details/rule-details.component';
 import { AppMaterialModule } from './app-material.module';
 import { RuleService } from './rule/common/rule.service';
+import { ChromeStorageService } from './rule/common/chrome-storage.service';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,7 @@ import { RuleService } from './rule/common/rule.service';
     BrowserAnimationsModule,
     RouterModule.forRoot(rootRouterConfig, { useHash: true })
   ],
-  providers: [RuleService],
+  providers: [RuleService, ChromeStorageService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

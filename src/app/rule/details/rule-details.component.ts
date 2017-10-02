@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Icon, OperatorRules } from '../common/rule-model';
+import { Icon, IRule, OperatorRules } from '../common/rule-model';
 import { RuleService } from '../common/rule.service';
 
 @Component({
@@ -38,6 +38,7 @@ export class RuleDetailsComponent implements OnInit {
   }
 
   save() {
+    const data = this.ruleForm.value as IRule;
   }
 
   private setUpForm() {
@@ -46,7 +47,7 @@ export class RuleDetailsComponent implements OnInit {
       url: ['', [Validators.required]],
       operator: ['', [Validators.required]],
       title: [''],
-      icon: [''],
+      icon: ['', [Validators.required]],
       iconUrl: ['']
     });
   }
