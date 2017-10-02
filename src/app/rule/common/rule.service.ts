@@ -1,14 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Icon } from './rule-model';
+import { Icon, IRule } from './rule-model';
 
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
+import { ChromeStorageService } from './chrome-storage.service';
 
 @Injectable()
 export class RuleService {
 
-  constructor(private http: HttpClient) {  }
+  constructor(private http: HttpClient,
+              private chromeStorage: ChromeStorageService) {  }
 
   /**
    * Returns the list of default icons
@@ -20,5 +22,14 @@ export class RuleService {
           return response;
         }
       );
+  }
+
+  /**
+   * Syncs the payload in memory to local storage
+   * @param {IRule[]} rules
+   * @returns {Promise<any>}
+   */
+  syncToLocalStorage(rules: IRule[]) {
+    return this.chromeStorage.setAll(rules);
   }
 }

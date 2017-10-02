@@ -11,6 +11,6 @@ export interface IAppStore {
 }
 
 export interface AppAction<T> extends Action {
-  data: T;
+  payload: T;
 }
 

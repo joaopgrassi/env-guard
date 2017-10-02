@@ -6,22 +6,29 @@ import { IRule } from './rule-model';
 @Injectable()
 export class RuleActions {
 
-  static LOAD_RULES = 'LOAD_RULES';
-  static LOAD_RULES_SUCCESS = 'LOAD_RULES_SUCCESS';
+  static SYNC_LOCAL_STORAGE = '[Rule] Sync Local Storage';
+  static LOAD_RULES = '[Rule] Load Rules';
+  static LOAD_RULES_SUCCESS = '[Rules] Load Rules Success';
 
-  static GET_RULE = 'GET_RULE';
-  static GET_RULE_SUCCESS = 'GET_RULE_SUCCESS';
+  static GET_RULE = '[Rule] Get Rule';
+  static GET_RULE_SUCCESS = '[Rule] Get Rule Success';
 
-  static RESET_RULE = 'RESET_RULE';
+  static RESET_RULE = '[Rule] Reset Rule';
 
-  static SAVE_RULE = 'SAVE_RULE';
-  static SAVE_RULE_SUCCESS = 'SAVE_RULE_SUCCESS';
+  static SAVE_RULE = '[Rule] Save Rule';
+  static SAVE_RULE_SUCCESS = '[Rule] Save Rule Success';
 
-  static ADD_RULE = 'ADD_RULE';
-  static ADD_RULE_SUCCESS = 'ADD_RULE_SUCCESS';
+  static ADD_RULE = '[Rule] Add Rule';
+  static ADD_RULE_SUCCESS = '[Rule] Add Rule Success';
 
-  static DELETE_RULE = 'DELETE_RULE';
-  static DELETE_RULE_SUCCESS = 'DELETE_RULE_SUCCESS';
+  static DELETE_RULE = '[Rule] Delete Rule';
+  static DELETE_RULE_SUCCESS = '[Rule] Delete Rule Success';
+
+  syncLocalStorage(): Action {
+    return {
+      type: RuleActions.SYNC_LOCAL_STORAGE
+    };
+  }
 
   loadRules(): Action {
     return {
@@ -32,21 +39,21 @@ export class RuleActions {
   loadRuleSuccess(rules): AppAction<IRule[]> {
     return {
       type: RuleActions.LOAD_RULES_SUCCESS,
-      data: rules
+      payload: rules
     };
   }
 
   getRule(id): AppAction<IRule> {
     return {
       type: RuleActions.GET_RULE,
-      data: id
+      payload: id
     };
   }
 
   getRuleSuccess(rule): AppAction<IRule> {
     return {
       type: RuleActions.GET_RULE_SUCCESS,
-      data: rule
+      payload: rule
     };
   }
 
@@ -59,42 +66,42 @@ export class RuleActions {
   saveRule(rule): AppAction<IRule> {
     return {
       type: RuleActions.SAVE_RULE,
-      data: rule
+      payload: rule
     };
   }
 
   saveRuleSuccess(rule): AppAction<IRule> {
     return {
       type: RuleActions.SAVE_RULE_SUCCESS,
-      data: rule
+      payload: rule
     };
   }
 
   addRule(rule): AppAction<IRule> {
     return {
       type: RuleActions.ADD_RULE,
-      data: rule
+      payload: rule
     };
   }
 
   addRuleSuccess(rule): AppAction<IRule> {
     return {
       type: RuleActions.ADD_RULE_SUCCESS,
-      data: rule
+      payload: rule
     };
   }
 
   deleteHero(rule): AppAction<IRule> {
     return {
       type: RuleActions.DELETE_RULE,
-      data: rule
+      payload: rule
     };
   }
 
   deleteHeroSuccess(rule): AppAction<IRule> {
     return {
       type: RuleActions.DELETE_RULE_SUCCESS,
-      data: rule
+      payload: rule
     };
   }
 }
