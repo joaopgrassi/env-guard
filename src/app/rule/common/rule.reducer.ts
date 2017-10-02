@@ -1,25 +1,32 @@
 import { AppAction } from '../../store/common/store.model';
-import { IRule } from './rule-model';
 import { ActionReducer } from '@ngrx/store';
+import { IRule } from '../common/rule-model';
+import { RuleActions } from '../common/rule.actions';
 
-export const ADD_RULE = 'ADD_RULE';
-export const UPDATE_RULE = 'UPDATE_RULE';
-export const DELETE_RULE = 'DELETE_RULE';
+export type RuleListState = IRule[];
 
-export function ruleReducer(state = [], action: AppAction<IRule>) {
+const initialState: RuleListState = [];
+
+export function ruleReducer(state = initialState, action: AppAction<IRule>) {
   switch (action.type) {
-    case ADD_RULE:
+    case RuleActions.LOAD_RULES_SUCCESS:
+      return action.data;
+
+    case RuleActions.ADD_RULE:
       return [action.data, ...state];
-    case DELETE_RULE:
-      return state.filter((item) => item.id !== action.data.id);
-    case UPDATE_RULE:
+
+    case RuleActions.SAVE_RULE:
       return state.map((item) => {
         return item.id === action.data.id
           ? Object.assign({}, item, { value: action.data })
           : item;
       });
+
+    case RuleActions.DELETE_RULE:
+      return state.filter((rule) => rule.id !== action.data.id);
     default:
       return state;
   }
 }
+
 export const RuleReducer: ActionReducer<any> = ruleReducer;

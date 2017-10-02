@@ -1,9 +1,16 @@
 import { Component } from '@angular/core';
+import { RuleActions } from './rule/common/rule.actions';
+import { Store } from '@ngrx/store';
+import { IAppStore } from './store/common/store.model';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
-  title = 'app';
+
+  constructor(private ruleActions: RuleActions,
+              private store: Store<IAppStore>) {
+    this.store.dispatch(this.ruleActions.loadRules());
+  }
 }

@@ -16,6 +16,7 @@ import { AppMaterialModule } from './app-material.module';
 import { RuleService } from './rule/common/rule.service';
 import { ChromeStorageService } from './rule/common/chrome-storage.service';
 import { AppStore } from './store/app.store';
+import { RuleActions } from './rule/common/rule.actions';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,7 @@ import { AppStore } from './store/app.store';
     BrowserAnimationsModule,
     AppStore,
   ],
-  providers: [RuleService, ChromeStorageService],
+  providers: [RuleService, ChromeStorageService, RuleActions],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
