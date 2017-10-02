@@ -12,6 +12,7 @@ export interface Icon {
 }
 
 export interface IRule {
+  id: string;
   name: string;
   url: string;
   operator: string;
@@ -21,6 +22,7 @@ export interface IRule {
 }
 
 export class Rule implements IRule {
+  id: string;
   name: string;
   url: string;
   operator: string;
