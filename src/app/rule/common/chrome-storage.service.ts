@@ -6,11 +6,13 @@ import 'rxjs/add/observable/from';
 @Injectable()
 export class ChromeStorageService {
 
+  private storage_key = 'env-guard';
+
   constructor() {
   }
 
   /**
-   * Sets all rules to the chrome storage.
+   * Sets all rules to either local or chrome storage.
    * @param {IRule[]} rules
    */
   setAll(rules: IRule[]): Observable<any> {
@@ -27,8 +29,29 @@ export class ChromeStorageService {
           }
         });
       } else {
-        localStorage.setItem(Object.keys(storage)[0], JSON.stringify(storage.envMagic));
+        localStorage.setItem(this.storage_key, JSON.stringify(storage.envMagic));
         resolve(true);
+      }
+    }));
+  }
+
+  /**
+   * gets all rules from either local or chrome storage.
+   */
+  getAllFromLocalStorage(): Observable<IRule[]> {
+    return Observable.from(new Promise((resolve, reject) => {
+      if (chrome !== undefined && chrome.storage !== undefined) {
+        chrome.storage.sync.get(this.storage_key, (rules: IRule[]) => {
+          if (!chrome.runtime.lastError) {
+            resolve(rules);
+          } else {
+            reject();
+            // TODO: Handle error here
+          }
+        });
+      } else {
+        resolve((localStorage.getItem(this.storage_key) === null) ? []
+          : JSON.parse(localStorage.getItem(this.storage_key)));
       }
     }));
   }

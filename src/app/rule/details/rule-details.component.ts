@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Icon, IRule, OperatorRules } from '../common/rule-model';
 import { RuleService } from '../common/rule.service';
@@ -24,13 +24,14 @@ export class RuleDetailsComponent implements OnInit {
   operatorRules = OperatorRules;
   icons: Icon[];
 
-  constructor(private route: ActivatedRoute,
+  constructor(private activateRoute: ActivatedRoute,
+              private router: Router,
               private formBuilder: FormBuilder,
               private ruleService: RuleService,
               private ruleActions: RuleActions,
               private store: Store<IAppStore>) {
 
-    const id: string = route.snapshot.params.id;
+    const id: string = activateRoute.snapshot.params.id;
 
     if (id === 'add') {
       this.newRule = true;
@@ -51,6 +52,11 @@ export class RuleDetailsComponent implements OnInit {
   save() {
     const data = this.ruleForm.value as IRule;
     this.store.dispatch(this.ruleActions.addRule(data));
+    this.goToDashboard();
+  }
+
+  cancel() {
+    this.goToDashboard();
   }
 
   private setUpForm() {
@@ -63,5 +69,12 @@ export class RuleDetailsComponent implements OnInit {
       icon: ['', [Validators.required]],
       iconUrl: ['']
     });
+  }
+
+  /**
+   * Redirects to the rules dashboard
+   */
+  private goToDashboard() {
+    this.router.navigate(['rules/dashboard']);
   }
 }

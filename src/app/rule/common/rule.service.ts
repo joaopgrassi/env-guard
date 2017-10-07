@@ -29,7 +29,15 @@ export class RuleService {
    * @param {IRule[]} rules
    * @returns {Promise<any>}
    */
-  syncToLocalStorage(rules: IRule[]) {
+  saveRules(rules: IRule[]) {
     return this.chromeStorage.setAll(rules);
+  }
+
+  /**
+   * Get all rules
+   * @returns {Observable<IRule[]>}
+   */
+  getAllRules(): Observable<IRule[]> {
+    return this.chromeStorage.getAllFromLocalStorage();
   }
 }

@@ -36,7 +36,7 @@ export class RuleActions {
     };
   }
 
-  loadRuleSuccess(rules): AppAction<IRule[]> {
+  loadRuleSuccess(rules: IRule[]): AppAction<IRule[]> {
     return {
       type: RuleActions.LOAD_RULES_SUCCESS,
       payload: rules

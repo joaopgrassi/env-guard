@@ -6,7 +6,7 @@ import { RuleService } from './rule.service';
 import { AppAction, IAppStore } from '../../store/common/store.model';
 import { IRule } from './rule-model';
 
-import 'rxjs/add/operator/mergeMap';
+import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/withLatestFrom';
 import 'rxjs/add/operator/map';
 
@@ -16,13 +16,20 @@ export class RuleEffects {
   constructor (
     private actions$: Actions,
     private store$: Store<IAppStore>,
-    private ruleService: RuleService
+    private ruleService: RuleService,
+    private ruleActions: RuleActions
   ) {}
 
-  @Effect() syncLocalStorage$ = this.actions$
+  @Effect() syncRules$ = this.actions$
     .ofType<AppAction<IRule[]>>(RuleActions.SYNC_LOCAL_STORAGE)
     .withLatestFrom(this.store$.select(s => s.rule))
     .map(([ action, state ]) => {
-      this.ruleService.syncToLocalStorage(state);
+      this.ruleService.saveRules(state);
     });
+
+  @Effect() loadRules$ = this.actions$
+    .ofType(RuleActions.LOAD_RULES)
+    .switchMap(() => this.ruleService.getAllRules()
+        .map((rules: IRule[]) => this.ruleActions.loadRuleSuccess(rules))
+    );
 }
