@@ -3,7 +3,7 @@
 No more mistakes while messing around 'production like' environments.
 
 Env-Guard is a chrome extension that lets you modify some parts of your chrome tabs. By doing so,
-you can easily identify whether you should be extra carefully or just do whatever you want in your app.
+you can easily identify whether you should be extra careful or just do whatever you want in your app.
 
 ## Motivation:
 
