@@ -1,28 +1,16 @@
-# EnvMagic
+# Env-Guard
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.3.0.
+No more mistakes while messing around 'production like' environments.
 
-## Development server
+Env-Guard is a chrome extension that let you modify some parts of your chrome tabs. By doing so,
+you can easily identify whether you should be extra carefully or just do whatever you want in your app.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Motivation:
 
-## Code scaffolding
+The chances that you need to log-in into the production instance of your app to either 
+fix some urgent problem or maybe to investigate something are pretty high. So, it's very likely that in a normal day at
+work you have multiple tabs of your app open and... as we all know sh** happens.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+You thought that you were browsing in your development instance where you are the "boss" 
+and accidentally deleted some important data. Oops!
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-Before running the tests make sure you are serving the app via `ng serve`.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
