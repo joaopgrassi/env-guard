@@ -32,8 +32,8 @@ export class Rule implements IRule {
 }
 
 export class StorageRules {
-  envMagic: IRule[];
+  envGuard: IRule[];
   constructor (rules: IRule[]) {
-    this.envMagic = rules;
+    this.envGuard = rules;
   }
 }

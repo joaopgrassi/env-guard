@@ -4,8 +4,7 @@ import { Component } from '@angular/core';
   selector: 'app-header',
   template: `
     <md-toolbar id="appToolbar" class="mat-elevation-z4" color="primary">
-      <span>Env-Magic</span>
-      <span>No more mistakes in production!</span>
+      <span>Env-Guard</span>
     </md-toolbar>
   `
 })

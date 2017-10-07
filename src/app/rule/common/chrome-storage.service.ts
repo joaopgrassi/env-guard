@@ -6,7 +6,7 @@ import 'rxjs/add/observable/from';
 @Injectable()
 export class ChromeStorageService {
 
-  private storage_key = 'env-guard';
+  private storage_key = 'envGuard';
 
   constructor() {
   }
@@ -29,7 +29,7 @@ export class ChromeStorageService {
           }
         });
       } else {
-        localStorage.setItem(this.storage_key, JSON.stringify(storage.envMagic));
+        localStorage.setItem(this.storage_key, JSON.stringify(storage.envGuard));
         resolve(true);
       }
     }));
