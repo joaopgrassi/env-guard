@@ -6,7 +6,15 @@ import { RuleActions } from '../common/rule.actions';
 export type RuleListState = IRule[];
 
 const initialState: RuleListState = [];
+const initialSelectedState = <IRule>{};
 
+
+/**
+ * Rules Reducer
+ * @param {RuleListState} state
+ * @param {AppAction<IRule>} action
+ * @returns {any}
+ */
 export function ruleReducer(state = initialState, action: AppAction<IRule>) {
   switch (action.type) {
     case RuleActions.LOAD_RULES_SUCCESS:
@@ -16,9 +24,9 @@ export function ruleReducer(state = initialState, action: AppAction<IRule>) {
       return [action.payload, ...state];
 
     case RuleActions.SAVE_RULE:
-      return state.map((item) => {
+      return state.map(item => {
         return item.id === action.payload.id
-          ? Object.assign({}, item, { value: action.payload })
+          ? Object.assign({}, item, action.payload)
           : item;
       });
 
@@ -28,5 +36,22 @@ export function ruleReducer(state = initialState, action: AppAction<IRule>) {
       return state;
   }
 }
-
 export const RuleReducer: ActionReducer<any> = ruleReducer;
+
+/**
+ * Selected Rule Reducer
+ * @param {{}} state
+ * @param {AppAction<IRule>} action
+ * @returns {any}
+ */
+export function selectedRuleReducer(state = initialSelectedState, action: AppAction<IRule>) {
+  switch (action.type) {
+
+    case RuleActions.GET_RULE:
+      return action.payload;
+
+    default:
+      return state;
+  }
+}
+export const SelectedRuleReducer: ActionReducer<any> = selectedRuleReducer;

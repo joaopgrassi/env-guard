@@ -8,7 +8,7 @@
 
     <form [formGroup]="ruleForm" novalidate>
 
-      <!-- rule name -->
+      <!-- rules name -->
       <div class="row mb-3">
         <div class="col-lg-5 col-md-3 col-sm-12">
           <md-form-field class="md-input-full">
@@ -59,14 +59,8 @@
             </md-option>
           </md-select>
         </div>
-        <div class="col-lg-3 col-md-12 col-sm-12">
-          <md-form-field class="md-input-full">
-            <input mdInput placeholder="URL" formControlName="iconUrl">
-          </md-form-field>
-        </div>
       </div>
     </form>
-
     <div class="mt-4">
       <button md-raised-button color="primary" (click)="save()">Save</button>
       <button md-raised-button (click)="cancel()">Cancel</button>

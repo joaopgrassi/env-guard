@@ -8,6 +8,10 @@ import { IAppStore } from '../../store/common/store.model';
 import { v4 as uuid } from 'uuid';
 import { RuleActions } from '../common/rule.actions';
 
+import 'rxjs/add/operator/filter';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/take';
+
 @Component({
   selector: 'app-rule-details',
   templateUrl: './rule-details.component.html',
@@ -35,9 +39,11 @@ export class RuleDetailsComponent implements OnInit {
 
     if (id === 'add') {
       this.newRule = true;
-    } else {
-      // TODO: Get rule from store here.
     }
+
+    store.select(x => x.selectedRule).subscribe((rule: IRule) => {
+      this.currentRule = rule;
+    });
   }
 
   ngOnInit() {
@@ -51,7 +57,11 @@ export class RuleDetailsComponent implements OnInit {
 
   save() {
     const data = this.ruleForm.value as IRule;
-    this.store.dispatch(this.ruleActions.addRule(data));
+    if (this.newRule) {
+      this.store.dispatch(this.ruleActions.addRule(data));
+    } else {
+      this.store.dispatch(this.ruleActions.saveRule(data));
+    }
     this.goToDashboard();
   }
 
@@ -61,13 +71,12 @@ export class RuleDetailsComponent implements OnInit {
 
   private setUpForm() {
     this.ruleForm = this.formBuilder.group({
-      id: [uuid()],
-      name: ['', [Validators.required]],
-      url: ['', [Validators.required]],
-      operator: ['', [Validators.required]],
-      title: [''],
-      icon: ['', [Validators.required]],
-      iconUrl: ['']
+      id: [this.currentRule.id || uuid()],
+      name: [this.currentRule.name, [Validators.required]],
+      url: [this.currentRule.url, [Validators.required]],
+      operator: [this.currentRule.operator, [Validators.required]],
+      title: [this.currentRule.title],
+      icon: [this.currentRule.icon, [Validators.required]]
     });
   }
 

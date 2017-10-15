@@ -25,6 +25,22 @@
         <md-cell *mdCellDef="let element"> {{element.url}} </md-cell>
       </ng-container>
 
+      <!-- Name Column -->
+      <ng-container mdColumnDef="actions">
+        <md-header-cell *mdHeaderCellDef> Actions </md-header-cell>
+        <md-cell *mdCellDef="let element">
+          <button md-icon-button (click)="edit(element)">
+            <md-icon class="md-24" aria-label="Example icon-button with a heart icon">mode_edit</md-icon>
+          </button>
+          <button md-icon-button>
+            <md-icon class="md-24" aria-label="Example icon-button with a heart icon">content_copy</md-icon>
+          </button>
+          <button md-icon-button (click)="delete(element)">
+            <md-icon class="md-24" aria-label="Example icon-button with a heart icon">delete</md-icon>
+          </button>
+        </md-cell>
+      </ng-container>
+
       <md-header-row *mdHeaderRowDef="displayedColumns"></md-header-row>
       <md-row *mdRowDef="let row; columns: displayedColumns;"></md-row>
     </md-table>

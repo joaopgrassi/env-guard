@@ -22,7 +22,7 @@ export class RuleEffects {
 
   @Effect() syncRules$ = this.actions$
     .ofType<AppAction<IRule[]>>(RuleActions.SYNC_LOCAL_STORAGE)
-    .withLatestFrom(this.store$.select(s => s.rule))
+    .withLatestFrom(this.store$.select(s => s.rules))
     .map(([ action, state ]) => {
       this.ruleService.saveRules(state);
     });

@@ -6,6 +6,7 @@ import 'rxjs/add/observable/of';
 import { IRule } from '../common/rule-model';
 import { Store } from '@ngrx/store';
 import { IAppStore } from '../../store/common/store.model';
+import { RuleActions } from '../common/rule.actions';
 
 @Component({
   selector: 'app-rule-dashboard',
@@ -14,10 +15,11 @@ import { IAppStore } from '../../store/common/store.model';
 })
 export class RuleDashboardComponent implements OnInit {
 
-  displayedColumns = ['name', 'operator', 'url'];
+  displayedColumns = ['name', 'operator', 'url', 'actions'];
   dataSource: RulesDataSource;
 
   constructor(private router: Router,
+              private ruleActions: RuleActions,
               private store: Store<any>) {
   }
 
@@ -25,8 +27,29 @@ export class RuleDashboardComponent implements OnInit {
     this.dataSource = new RulesDataSource(this.store);
   }
 
+  /**
+   * Add a new rule
+   */
   newRule() {
+    this.store.dispatch(this.ruleActions.getRule(<IRule>{}));
     this.router.navigate(['rules/add']);
+  }
+
+  /**
+   * Modify an existing rule
+   * @param {IRule} rule
+   */
+  edit(rule: IRule) {
+    this.store.dispatch(this.ruleActions.getRule(rule));
+    this.router.navigate([`rules/${rule.id}`]);
+  }
+
+  /**
+   * Removes a rule
+   * @param {IRule} rule
+   */
+  delete(rule: IRule) {
+    this.store.dispatch(this.ruleActions.deleteRule(rule));
   }
 }
 
@@ -36,7 +59,7 @@ export class RulesDataSource extends DataSource<IRule> {
   }
 
   connect(): Observable<IRule[]> {
-    return this.store.select(r => r.rule);
+    return this.store.select(r => r.rules);
   }
 
   disconnect() {
