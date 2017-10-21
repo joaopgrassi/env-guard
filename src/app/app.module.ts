@@ -17,13 +17,14 @@ import { RuleService } from './rule/common/rule.service';
 import { ChromeStorageService } from './rule/common/chrome-storage.service';
 import { AppStore } from './store/app.store';
 import { RuleActions } from './rule/common/rule.actions';
+import { NotificationService } from './common/notification.service';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     RuleDashboardComponent,
-    RuleDetailsComponent
+    RuleDetailsComponent,
   ],
   imports: [
     BrowserModule,
@@ -37,7 +38,7 @@ import { RuleActions } from './rule/common/rule.actions';
     BrowserAnimationsModule,
     AppStore,
   ],
-  providers: [RuleService, ChromeStorageService, RuleActions],
+  providers: [RuleService, NotificationService, ChromeStorageService, RuleActions],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

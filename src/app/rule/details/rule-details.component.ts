@@ -11,6 +11,7 @@ import { RuleActions } from '../common/rule.actions';
 import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/take';
+import { NotificationService } from '../../common/notification.service';
 
 @Component({
   selector: 'app-rule-details',
@@ -33,6 +34,7 @@ export class RuleDetailsComponent implements OnInit {
               private formBuilder: FormBuilder,
               private ruleService: RuleService,
               private ruleActions: RuleActions,
+              private notificationService: NotificationService,
               private store: Store<IAppStore>) {
 
     const id: string = activateRoute.snapshot.params.id;
@@ -63,6 +65,7 @@ export class RuleDetailsComponent implements OnInit {
       this.store.dispatch(this.ruleActions.saveRule(data));
     }
     this.goToDashboard();
+    this.notificationService.notifySuccess('Rule Saved!');
   }
 
   cancel() {

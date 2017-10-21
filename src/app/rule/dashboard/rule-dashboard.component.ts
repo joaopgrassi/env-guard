@@ -9,6 +9,7 @@ import { v4 as uuid } from 'uuid';
 import { IRule } from '../common/rule-model';
 import { IAppStore } from '../../store/common/store.model';
 import { RuleActions } from '../common/rule.actions';
+import { NotificationService } from '../../common/notification.service';
 
 @Component({
   selector: 'app-rule-dashboard',
@@ -22,6 +23,7 @@ export class RuleDashboardComponent implements OnInit {
 
   constructor(private router: Router,
               private ruleActions: RuleActions,
+              private notificationService: NotificationService,
               private store: Store<any>) {
   }
 
@@ -55,6 +57,7 @@ export class RuleDashboardComponent implements OnInit {
     copy.id = uuid();
     copy.name = `${rule.name} - Copy`;
     this.store.dispatch(this.ruleActions.addRule(copy));
+    this.notificationService.notifySuccess('Rule duplicated!');
   }
 
   /**
