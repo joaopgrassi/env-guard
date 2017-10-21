@@ -21,7 +21,7 @@ export function ruleReducer(state = initialState, action: AppAction<IRule>) {
       return action.payload;
 
     case RuleActions.ADD_RULE:
-      return [action.payload, ...state];
+      return [...state, action.payload];
 
     case RuleActions.SAVE_RULE:
       return state.map(item => {

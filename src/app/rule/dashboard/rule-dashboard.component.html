@@ -32,10 +32,10 @@
           <button md-icon-button (click)="edit(element)">
             <md-icon class="md-24" aria-label="Example icon-button with a heart icon">mode_edit</md-icon>
           </button>
-          <button md-icon-button>
+          <button md-icon-button (click)="duplicate(element)">
             <md-icon class="md-24" aria-label="Example icon-button with a heart icon">content_copy</md-icon>
           </button>
-          <button md-icon-button (click)="delete(element)">
+          <button md-icon-button (click)="remove(element)">
             <md-icon class="md-24" aria-label="Example icon-button with a heart icon">delete</md-icon>
           </button>
         </md-cell>

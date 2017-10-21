@@ -3,8 +3,10 @@ import { Router } from '@angular/router';
 import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/of';
-import { IRule } from '../common/rule-model';
 import { Store } from '@ngrx/store';
+import { v4 as uuid } from 'uuid';
+
+import { IRule } from '../common/rule-model';
 import { IAppStore } from '../../store/common/store.model';
 import { RuleActions } from '../common/rule.actions';
 
@@ -45,10 +47,21 @@ export class RuleDashboardComponent implements OnInit {
   }
 
   /**
+   * Duplicate an existing rule
+   * @param {IRule} rule
+   */
+  duplicate(rule: IRule) {
+    const copy = Object.assign({}, rule);
+    copy.id = uuid();
+    copy.name = `${rule.name} - Copy`;
+    this.store.dispatch(this.ruleActions.addRule(copy));
+  }
+
+  /**
    * Removes a rule
    * @param {IRule} rule
    */
-  delete(rule: IRule) {
+  remove(rule: IRule) {
     this.store.dispatch(this.ruleActions.deleteRule(rule));
   }
 }
