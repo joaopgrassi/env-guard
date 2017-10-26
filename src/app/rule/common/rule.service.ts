@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Icon, IRule } from './rule-model';
-
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
+
 import { ChromeStorageService } from './chrome-storage.service';
+import { Icon, IRule } from './rule-model';
 
 @Injectable()
 export class RuleService {

@@ -6,10 +6,10 @@ import 'rxjs/add/observable/of';
 import { Store } from '@ngrx/store';
 import { v4 as uuid } from 'uuid';
 
-import { IRule } from '../common/rule-model';
 import { IAppStore } from '../../store/common/store.model';
-import { RuleActions } from '../common/rule.actions';
 import { NotificationService } from '../../common/notification.service';
+
+import { IRule, RuleActions } from '../common/';
 
 @Component({
   selector: 'app-rule-dashboard',

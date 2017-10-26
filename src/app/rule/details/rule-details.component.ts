@@ -1,17 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Icon, IRule, OperatorRules } from '../common/rule-model';
-import { RuleService } from '../common/rule.service';
 import { Store } from '@ngrx/store';
-import { IAppStore } from '../../store/common/store.model';
 import { v4 as uuid } from 'uuid';
-import { RuleActions } from '../common/rule.actions';
-
-import 'rxjs/add/operator/filter';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/take';
+
 import { NotificationService } from '../../common/notification.service';
+import { IAppStore } from '../../store/common/store.model';
+
+import { Icon, IRule, OperatorRules, RuleService, RuleActions } from '../common/';
 
 @Component({
   selector: 'app-rule-details',

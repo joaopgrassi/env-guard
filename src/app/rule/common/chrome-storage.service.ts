@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { IRule, StorageRules } from './rule-model';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
+
+import { IRule, StorageRules } from './rule-model';
 
 @Injectable()
 export class ChromeStorageService {

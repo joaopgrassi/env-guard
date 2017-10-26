@@ -1,13 +1,12 @@
 import { AppAction } from '../../store/common/store.model';
 import { ActionReducer } from '@ngrx/store';
-import { IRule } from '../common/rule-model';
-import { RuleActions } from '../common/rule.actions';
+import { IRule } from './rule-model';
+import { RuleActions } from './rule.actions';
 
 export type RuleListState = IRule[];
 
 const initialState: RuleListState = [];
 const initialSelectedState = <IRule>{};
-
 
 /**
  * Rules Reducer

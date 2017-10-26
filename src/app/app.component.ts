@@ -1,7 +1,8 @@
 import { Component, HostListener } from '@angular/core';
-import { RuleActions } from './rule/common/rule.actions';
 import { Store } from '@ngrx/store';
-import { IAppStore } from './store/common/store.model';
+
+import { RuleActions } from './rule/common/rule.actions';
+import { IAppStore } from './store';
 
 @Component({
   selector: 'app-root',
