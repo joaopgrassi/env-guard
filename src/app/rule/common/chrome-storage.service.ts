@@ -42,9 +42,9 @@ export class ChromeStorageService {
   getAllFromLocalStorage(): Observable<IRule[]> {
     return Observable.from(new Promise((resolve, reject) => {
       if (chrome !== undefined && chrome.storage !== undefined) {
-        chrome.storage.sync.get(this.storage_key, (rules: IRule[]) => {
+        chrome.storage.sync.get(this.storage_key, (items: any) => {
           if (!chrome.runtime.lastError) {
-            resolve(rules);
+            resolve(items[this.storage_key]);
           } else {
             reject();
             // TODO: Handle error here
