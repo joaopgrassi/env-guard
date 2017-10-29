@@ -51,10 +51,10 @@
         <div class="col-lg-2 col-md-12 col-sm-12">
           <md-select class="md-input-full" placeholder="Tab icon" formControlName="icon" #select="mdSelect">
             <md-select-trigger>
-              <img class="md-img-select md-icon-16x" src="../assets/{{select.selected?.value}}" alt="{{ select.selected?.viewValue }}">
+              <img class="md-img-select md-icon-16x" src="../assets/{{getIcon(select.selected?.value)?.path}}" alt="{{ select.selected?.viewValue }}">
               {{ select.selected?.viewValue }}
             </md-select-trigger>
-            <md-option layout="row" layout-align="start center" *ngFor="let icon of icons" [value]="icon.path">
+            <md-option layout="row" layout-align="start center" *ngFor="let icon of icons" [value]="icon.key">
               <img class="md-img-select md-icon-16x" src="../assets/{{icon.path}}" alt="{{ icon.name }}"> {{ icon.name }}
             </md-option>
           </md-select>

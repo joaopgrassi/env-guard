@@ -8,6 +8,7 @@ export const OperatorRules = {
 
 export interface Icon {
   name: string;
+  key: string;
   path: string;
 }
 
@@ -17,8 +18,7 @@ export interface IRule {
   url: string;
   operator: string;
   title: string;
-  icon: string;
-  iconUrl: string;
+  icon: Icon;
 }
 
 export class Rule implements IRule {
@@ -26,9 +26,26 @@ export class Rule implements IRule {
   name: string;
   url: string;
   operator: string;
-  icon: string;
   title: string;
-  iconUrl: string;
+  icon: Icon;
+
+  /**
+   * Creates a new instance of Rule
+   * @param {string} id
+   * @param {string} name
+   * @param {string} url
+   * @param {string} operator
+   * @param {string} title
+   * @param {Icon} icon
+   */
+  constructor(id: string, name: string, url: string, operator: string, title: string, icon: Icon) {
+    this.id = id;
+    this.name = name;
+    this.url = url;
+    this.operator = operator;
+    this.title = title;
+    this.icon = icon;
+  }
 }
 
 export class StorageRules {

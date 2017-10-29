@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map';
 import { NotificationService } from '../../common/notification.service';
 import { IAppStore } from '../../store/common/store.model';
 
-import { Icon, IRule, OperatorRules, RuleService, RuleActions } from '../common/';
+import { Icon, IRule, Rule, OperatorRules, RuleService, RuleActions } from '../common/';
 
 @Component({
   selector: 'app-rule-details',
@@ -16,12 +16,9 @@ import { Icon, IRule, OperatorRules, RuleService, RuleActions } from '../common/
   styleUrls: ['./rule-details.component.css']
 })
 export class RuleDetailsComponent implements OnInit {
-
   currentRule: IRule;
   newRule: boolean;
-
   ruleForm: FormGroup;
-
   operatorKeys: any;
   operatorRules = OperatorRules;
   icons: Icon[];
@@ -54,12 +51,33 @@ export class RuleDetailsComponent implements OnInit {
     this.setUpForm();
   }
 
+  /**
+   * Get the icon based on the key
+   * @param {string} key
+   * @returns {Icon}
+   */
+  getIcon(key: string): Icon {
+    if (key && this.icons) {
+      return this.icons.find(i => i.key === key);
+    }
+  }
+
+  /**
+   * Saves or updates a rule
+   */
   save() {
-    const data = this.ruleForm.value as IRule;
+    const rule = new Rule(
+      this.ruleForm.value.id,
+      this.ruleForm.value.name,
+      this.ruleForm.value.url,
+      this.ruleForm.value.operator,
+      this.ruleForm.value.title,
+      this.getIcon(this.ruleForm.value.icon));
+
     if (this.newRule) {
-      this.store.dispatch(this.ruleActions.addRule(data));
+      this.store.dispatch(this.ruleActions.addRule(rule));
     } else {
-      this.store.dispatch(this.ruleActions.saveRule(data));
+      this.store.dispatch(this.ruleActions.saveRule(rule));
     }
     this.goToDashboard();
     this.notificationService.notifySuccess('Rule Saved!');
@@ -76,7 +94,7 @@ export class RuleDetailsComponent implements OnInit {
       url: [this.currentRule.url, [Validators.required]],
       operator: [this.currentRule.operator, [Validators.required]],
       title: [this.currentRule.title],
-      icon: [this.currentRule.icon, [Validators.required]]
+      icon: [this.currentRule.icon ? this.currentRule.icon.key : '', [Validators.required]]
     });
   }
 

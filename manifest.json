@@ -5,8 +5,14 @@
   "description": "No more mistakes in production.",
   "author": "Joao Grassi",
   "homepage_url": "https://github.com/joaopgrassi/env-guard",
+  "icons": {
+    "16": "assets/icons/green.png",
+    "32": "assets/icons/green.png",
+    "48": "assets/icons/green.png",
+    "128": "assets/icons/green.png"
+  },
   "browser_action": {
-    "default_icon": "icon.png"
+    "default_icon": "assets/icons/green.png"
   },
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "options_page": "index.html",

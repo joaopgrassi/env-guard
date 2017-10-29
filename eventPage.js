@@ -13,6 +13,6 @@ openExtension = function () {
   });
 };
 
-chrome.browserAction.onClicked.addListener(function(tab) {
+chrome.browserAction.onClicked.addListener(function() {
   openExtension();
 });

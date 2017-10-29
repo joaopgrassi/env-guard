@@ -7,27 +7,31 @@
   <md-card fxFlex="95%">
     <md-table #table [dataSource]="dataSource">
 
-      <!-- Name Column -->
       <ng-container mdColumnDef="name">
-        <md-header-cell *mdHeaderCellDef> Name </md-header-cell>
-        <md-cell *mdCellDef="let element"> {{element.name}} </md-cell>
+        <md-header-cell *mdHeaderCellDef> Name</md-header-cell>
+        <md-cell *mdCellDef="let element"> {{element.name}}</md-cell>
       </ng-container>
 
-      <!-- Name Column -->
       <ng-container mdColumnDef="operator">
-        <md-header-cell *mdHeaderCellDef> Operator </md-header-cell>
-        <md-cell *mdCellDef="let element"> {{element.operator}} </md-cell>
+        <md-header-cell *mdHeaderCellDef> Operator</md-header-cell>
+        <md-cell *mdCellDef="let element"> {{element.operator}}</md-cell>
       </ng-container>
 
-      <!-- Name Column -->
       <ng-container mdColumnDef="url">
-        <md-header-cell *mdHeaderCellDef> URL </md-header-cell>
-        <md-cell *mdCellDef="let element"> {{element.url}} </md-cell>
+        <md-header-cell *mdHeaderCellDef> URL</md-header-cell>
+        <md-cell *mdCellDef="let element"> {{element.url}}</md-cell>
       </ng-container>
 
-      <!-- Name Column -->
+      <ng-container mdColumnDef="icon">
+        <md-header-cell *mdHeaderCellDef> Icon</md-header-cell>
+        <md-cell *mdCellDef="let element">
+          <img class="md-img-select md-icon-16x" src="../assets/{{element.icon.path}}">
+          {{element.icon.name}}
+        </md-cell>
+      </ng-container>
+
       <ng-container mdColumnDef="actions">
-        <md-header-cell *mdHeaderCellDef> Actions </md-header-cell>
+        <md-header-cell *mdHeaderCellDef> Actions</md-header-cell>
         <md-cell *mdCellDef="let element">
           <button md-icon-button (click)="edit(element)">
             <md-icon class="md-24" aria-label="Example icon-button with a heart icon">mode_edit</md-icon>

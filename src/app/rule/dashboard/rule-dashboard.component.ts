@@ -18,7 +18,7 @@ import { IRule, RuleActions } from '../common/';
 })
 export class RuleDashboardComponent implements OnInit {
 
-  displayedColumns = ['name', 'operator', 'url', 'actions'];
+  displayedColumns = ['name', 'operator', 'url', 'icon', 'actions'];
   dataSource: RulesDataSource;
 
   constructor(private router: Router,
