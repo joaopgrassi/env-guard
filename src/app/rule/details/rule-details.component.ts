@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { v4 as uuid } from 'uuid';
+
 import 'rxjs/add/operator/map';
 
 import { NotificationService } from '../../common/notification.service';
@@ -16,7 +16,7 @@ import { Icon, IRule, Rule, OperatorRules, RuleService, RuleActions } from '../c
   styleUrls: ['./rule-details.component.css']
 })
 export class RuleDetailsComponent implements OnInit {
-  currentRule: IRule;
+  currentRule: IRule = <IRule>{};
   newRule: boolean;
   ruleForm: FormGroup;
   operatorKeys: any;
@@ -35,8 +35,9 @@ export class RuleDetailsComponent implements OnInit {
 
     if (id === 'add') {
       this.newRule = true;
+    } else {
+      this.store.dispatch(this.ruleActions.getRule(id));
     }
-
     store.select(x => x.selectedRule).subscribe((rule: IRule) => {
       this.currentRule = rule;
     });
@@ -89,7 +90,7 @@ export class RuleDetailsComponent implements OnInit {
 
   private setUpForm() {
     this.ruleForm = this.formBuilder.group({
-      id: [this.currentRule.id || uuid()],
+      id: [this.currentRule.id],
       name: [this.currentRule.name, [Validators.required]],
       url: [this.currentRule.url, [Validators.required]],
       operator: [this.currentRule.operator, [Validators.required]],

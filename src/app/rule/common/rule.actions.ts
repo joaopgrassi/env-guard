@@ -11,6 +11,7 @@ export class RuleActions {
   static LOAD_RULES_SUCCESS = '[Rules] Load Rules Success';
 
   static GET_RULE = '[Rule] Get Rule';
+  static GET_RULE_SUCCESS = '[Rule] Get Rule Success';
   static SAVE_RULE = '[Rule] Save Rule';
   static ADD_RULE = '[Rule] Add Rule';
   static DELETE_RULE = '[Rule] Delete Rule';
@@ -34,9 +35,16 @@ export class RuleActions {
     };
   }
 
-  getRule(rule: IRule): AppAction<IRule> {
+  getRule(id: string): AppAction<IRule> {
     return {
       type: RuleActions.GET_RULE,
+      payload: <IRule>{ id: id }
+    };
+  }
+
+  getRuleSuccess(rule: IRule): AppAction<IRule> {
+    return {
+      type: RuleActions.GET_RULE_SUCCESS,
       payload: rule
     };
   }

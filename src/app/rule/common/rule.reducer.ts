@@ -35,6 +35,7 @@ export function ruleReducer(state = initialState, action: AppAction<IRule>) {
       return state;
   }
 }
+
 export const RuleReducer: ActionReducer<any> = ruleReducer;
 
 /**
@@ -46,11 +47,12 @@ export const RuleReducer: ActionReducer<any> = ruleReducer;
 export function selectedRuleReducer(state = initialSelectedState, action: AppAction<IRule>) {
   switch (action.type) {
 
-    case RuleActions.GET_RULE:
+    case RuleActions.GET_RULE_SUCCESS:
       return action.payload;
 
     default:
       return state;
   }
 }
+
 export const SelectedRuleReducer: ActionReducer<any> = selectedRuleReducer;

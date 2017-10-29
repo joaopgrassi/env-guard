@@ -35,7 +35,7 @@ export class RuleDashboardComponent implements OnInit {
    * Add a new rule
    */
   newRule() {
-    this.store.dispatch(this.ruleActions.getRule(<IRule>{}));
+    this.store.dispatch(this.ruleActions.getRule(''));
     this.router.navigate(['rules/add']);
   }
 
@@ -44,7 +44,6 @@ export class RuleDashboardComponent implements OnInit {
    * @param {IRule} rule
    */
   edit(rule: IRule) {
-    this.store.dispatch(this.ruleActions.getRule(rule));
     this.router.navigate([`rules/${rule.id}`]);
   }
 

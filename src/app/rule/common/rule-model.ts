@@ -1,3 +1,5 @@
+import { v4 as uuid } from 'uuid';
+
 export const OperatorRules = {
   Contains: 'Contains',
   StartsWith: 'Starts with',
@@ -39,7 +41,7 @@ export class Rule implements IRule {
    * @param {Icon} icon
    */
   constructor(id: string, name: string, url: string, operator: string, title: string, icon: Icon) {
-    this.id = id;
+    this.id = id || uuid();
     this.name = name;
     this.url = url;
     this.operator = operator;
