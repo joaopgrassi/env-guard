@@ -7,21 +7,21 @@ html, body {
   width: 100%;
 }
 
-md-sidenav-container {
+mat-sidenav-container {
   position: fixed;
   height: calc(100vh - 64px);
 }
 
-md-sidenav {
+mat-sidenav {
   width: 250px;
 }
 
-md-card {
+mat-card {
   max-width: 90%;
   margin: 2em auto;
 }
 
-md-toolbar-row {
+mat-toolbar-row {
   justify-content: space-between;
 }
 
@@ -54,7 +54,7 @@ md-toolbar-row {
 }
 
 /* FORMS */
-.md-input-full {
+.input-full {
   width: 100%;
 }
 

@@ -4,57 +4,55 @@
 
 <div class="row">
 
-  <md-card fxFlex="95%">
-    <md-table #table [dataSource]="dataSource">
+  <mat-card fxFlex="95%">
+    <mat-table #table [dataSource]="dataSource">
 
-      <ng-container mdColumnDef="name">
-        <md-header-cell *mdHeaderCellDef> Name</md-header-cell>
-        <md-cell *mdCellDef="let element"> {{element.name}}</md-cell>
+      <ng-container matColumnDef="name">
+        <mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.name}}</mat-cell>
       </ng-container>
 
-      <ng-container mdColumnDef="operator">
-        <md-header-cell *mdHeaderCellDef> Operator</md-header-cell>
-        <md-cell *mdCellDef="let element"> {{element.operator}}</md-cell>
+      <ng-container matColumnDef="operator">
+        <mat-header-cell *matHeaderCellDef> Operator</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.operator}}</mat-cell>
       </ng-container>
 
-      <ng-container mdColumnDef="url">
-        <md-header-cell *mdHeaderCellDef> URL</md-header-cell>
-        <md-cell *mdCellDef="let element"> {{element.url}}</md-cell>
+      <ng-container matColumnDef="url">
+        <mat-header-cell *matHeaderCellDef> URL</mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.url}}</mat-cell>
       </ng-container>
 
-      <ng-container mdColumnDef="icon">
-        <md-header-cell *mdHeaderCellDef> Icon</md-header-cell>
-        <md-cell *mdCellDef="let element">
-          <img class="md-img-select md-icon-16x" src="../assets/{{element.icon.path}}">
+      <ng-container matColumnDef="icon">
+        <mat-header-cell *matHeaderCellDef> Icon</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <img class="md-img-select mat-icon-16x" src="assets/{{element.icon.path}}">
           {{element.icon.name}}
-        </md-cell>
+        </mat-cell>
       </ng-container>
 
-      <ng-container mdColumnDef="actions">
-        <md-header-cell *mdHeaderCellDef> Actions</md-header-cell>
-        <md-cell *mdCellDef="let element">
-          <button md-icon-button (click)="edit(element)">
-            <md-icon class="md-24" aria-label="Example icon-button with a heart icon">mode_edit</md-icon>
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef> Actions</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button mat-icon-button (click)="edit(element)">
+            <mat-icon class="md-24" aria-label="Example icon-button with a heart icon">mode_edit</mat-icon>
           </button>
-          <button md-icon-button (click)="duplicate(element)">
-            <md-icon class="md-24" aria-label="Example icon-button with a heart icon">content_copy</md-icon>
+          <button mat-icon-button (click)="duplicate(element)">
+            <mat-icon class="md-24" aria-label="Example icon-button with a heart icon">content_copy</mat-icon>
           </button>
-          <button md-icon-button (click)="remove(element)">
-            <md-icon class="md-24" aria-label="Example icon-button with a heart icon">delete</md-icon>
+          <button mat-icon-button (click)="remove(element)">
+            <mat-icon class="md-24" aria-label="Example icon-button with a heart icon">delete</mat-icon>
           </button>
-        </md-cell>
+        </mat-cell>
       </ng-container>
 
-      <md-header-row *mdHeaderRowDef="displayedColumns"></md-header-row>
-      <md-row *mdRowDef="let row; columns: displayedColumns;"></md-row>
-    </md-table>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    </mat-table>
 
-  </md-card>
-
+  </mat-card>
   <span class="done">
-    <button md-fab (click)="newRule()">
-      <md-icon>add circle</md-icon>
+    <button mat-fab (click)="newRule()">
+      <mat-icon>add circle</mat-icon>
     </button>
   </span>
-
 </div>

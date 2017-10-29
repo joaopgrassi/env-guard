@@ -4,66 +4,72 @@
 
 <div class="row">
 
-  <md-card fxFlex="95%">
+  <mat-card fxFlex="95%">
 
     <form [formGroup]="ruleForm" novalidate>
 
       <!-- rules name -->
       <div class="row mb-3">
         <div class="col-lg-5 col-md-3 col-sm-12">
-          <md-form-field class="md-input-full">
-            <input mdInput placeholder="Rule alias" formControlName="name">
-            <md-error *ngIf="ruleForm.controls.name.errors">
+          <mat-form-field class="input-full">
+            <input matInput placeholder="Rule alias" formControlName="name">
+            <mat-error *ngIf="ruleForm.controls.name.errors">
               Rule alias is <strong>required</strong>
-            </md-error>
-          </md-form-field>
+            </mat-error>
+          </mat-form-field>
         </div>
       </div>
 
       <!-- URL -->
       <div class="row mb-2">
         <div class="col-lg-1 col-md-12 col-sm-12">
-          <md-select placeholder="Operator" formControlName="operator">
-            <md-option *ngFor="let key of operatorKeys" [value]="key">{{operatorRules[key]}}</md-option>
-          </md-select>
+          <mat-form-field class="input-full">
+            <mat-select placeholder="Operator" formControlName="operator">
+              <mat-option *ngFor="let key of operatorKeys" [value]="key">{{operatorRules[key]}}</mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
         <div class="col-lg-4 col-md-12 col-sm-12">
-          <md-form-field class="md-input-full">
-            <input mdInput placeholder="URL" formControlName="url">
-            <md-error *ngIf="ruleForm.controls.url.errors">
+          <mat-form-field class="input-full">
+            <input matInput placeholder="URL" formControlName="url">
+            <mat-error *ngIf="ruleForm.controls.url.errors">
               URL is <strong>required</strong>
-            </md-error>
-          </md-form-field>
+            </mat-error>
+          </mat-form-field>
         </div>
       </div>
 
       <!-- tab title -->
       <div class="row mb-3">
         <div class="col-lg-5 col-md-3 col-sm-12">
-          <md-form-field class="md-input-full">
-            <input mdInput placeholder="Tab Title" formControlName="title">
-          </md-form-field>
+          <mat-form-field class="input-full">
+            <input matInput placeholder="Tab Title" formControlName="title">
+          </mat-form-field>
         </div>
       </div>
 
       <!-- tab icon -->
       <div class="row mb-2">
         <div class="col-lg-2 col-md-12 col-sm-12">
-          <md-select class="md-input-full" placeholder="Tab icon" formControlName="icon" #select="mdSelect">
-            <md-select-trigger>
-              <img class="md-img-select md-icon-16x" src="../assets/{{getIcon(select.selected?.value)?.path}}" alt="{{ select.selected?.viewValue }}">
-              {{ select.selected?.viewValue }}
-            </md-select-trigger>
-            <md-option layout="row" layout-align="start center" *ngFor="let icon of icons" [value]="icon.key">
-              <img class="md-img-select md-icon-16x" src="../assets/{{icon.path}}" alt="{{ icon.name }}"> {{ icon.name }}
-            </md-option>
-          </md-select>
+          <mat-form-field>
+            <mat-select class="input-full" placeholder="Tab icon" formControlName="icon" #select="matSelect">
+              <mat-select-trigger>
+                <img class="md-img-select mat-icon-16x" src="assets/{{getIcon(select.selected?.value)?.path}}"
+                     alt="{{ select.selected?.viewValue }}">
+                {{ select.selected?.viewValue }}
+              </mat-select-trigger>
+              <mat-option layout="row" layout-align="start center" *ngFor="let icon of icons" [value]="icon.key">
+                <img class="md-img-select mat-icon-16x" src="assets/{{icon.path}}" alt="{{ icon.name }}"> {{
+                icon.name }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
         </div>
       </div>
     </form>
     <div class="mt-4">
-      <button md-raised-button color="primary" (click)="save()">Save</button>
-      <button md-raised-button (click)="cancel()">Cancel</button>
+      <button mat-raised-button color="primary" (click)="save()">Save</button>
+      <button mat-raised-button (click)="cancel()">Cancel</button>
     </div>
-  </md-card>
+  </mat-card>
 </div>

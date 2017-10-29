@@ -8,6 +8,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { AppMaterialModule } from './app-material.module';
 import { rootRouterConfig } from './app-routes';
+import { MATERIAL_COMPATIBILITY_MODE } from '@angular/material';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './_layout/';
@@ -35,7 +36,13 @@ import { RuleDashboardComponent, RuleDetailsComponent, RuleService, ChromeStorag
     BrowserAnimationsModule,
     AppStore,
   ],
-  providers: [RuleService, NotificationService, ChromeStorageService, RuleActions],
+  providers: [
+    RuleService,
+    NotificationService,
+    ChromeStorageService,
+    RuleActions,
+    {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
