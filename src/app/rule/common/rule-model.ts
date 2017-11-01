@@ -8,10 +8,28 @@ export const OperatorRules = {
   Regex: 'Regex'
 };
 
-export interface Icon {
+export interface IIcon {
   name: string;
   key: string;
   path: string;
+}
+
+export class Icon implements IIcon {
+  name: string;
+  key: string;
+  path: string;
+
+  /***
+   * Creates a new Icon
+   * @param {string} name
+   * @param {string} key
+   * @param {string} path
+   */
+  constructor(name: string, key: string, path: string) {
+    this.name = name;
+    this.key = key;
+    this.path = path;
+  }
 }
 
 export interface IRule {

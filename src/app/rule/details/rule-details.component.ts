@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map';
 import { NotificationService } from '../../common/notification.service';
 import { IAppStore } from '../../store/common/store.model';
 
-import { Icon, IRule, Rule, OperatorRules, RuleService, RuleActions } from '../common/';
+import { IIcon, IRule, Rule, OperatorRules, RuleService, RuleActions } from '../common/';
 
 @Component({
   selector: 'app-rule-details',
@@ -21,7 +21,7 @@ export class RuleDetailsComponent implements OnInit {
   ruleForm: FormGroup;
   operatorKeys: any;
   operatorRules = OperatorRules;
-  icons: Icon[];
+  icons: IIcon[];
 
   constructor(private activateRoute: ActivatedRoute,
               private router: Router,
@@ -45,7 +45,7 @@ export class RuleDetailsComponent implements OnInit {
 
   ngOnInit() {
     this.operatorKeys = Object.keys(OperatorRules).map(x => x);
-    this.ruleService.getDefaultIcons().subscribe((resp: Icon[]) => {
+    this.ruleService.getDefaultIcons().subscribe((resp: IIcon[]) => {
       this.icons = resp;
     });
 
@@ -55,9 +55,9 @@ export class RuleDetailsComponent implements OnInit {
   /**
    * Get the icon based on the key
    * @param {string} key
-   * @returns {Icon}
+   * @returns {IIcon}
    */
-  getIcon(key: string): Icon {
+  getIcon(key: string): IIcon {
     if (key && this.icons) {
       return this.icons.find(i => i.key === key);
     }

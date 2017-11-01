@@ -14,9 +14,15 @@ module.exports = function (config) {
       require('karma-scss-preprocessor')
     ],
     files: [
-      { pattern: './src/test.ts', watched: false },
-      { pattern: './src/styles.scss', watched: false, included: false, served: true }
+      { pattern: './src/test.ts', watched: false  },
+      { pattern: './node_modules/@angular/material/prebuilt-themes/indigo-pink.css', watched: false, included: true },
+      { pattern: './node_modules/bootstrap/dist/css/bootstrap.min.css', included: true, watched: false },
+      { pattern: './src/styles.scss', watched: true, included: false, served: true }
     ],
+    preprocessors: {
+      './src/test.ts': ['@angular/cli'],
+      './src/styles.scss': ['scss']
+    },
     client: {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
@@ -26,10 +32,6 @@ module.exports = function (config) {
     },
     angularCli: {
       environment: 'dev'
-    },
-    preprocessors: {
-      './src/test.ts': ['@angular/cli'],
-      './src/styles.scss': ['scss']
     },
     reporters: ['progress', 'kjhtml'],
     port: 9876,

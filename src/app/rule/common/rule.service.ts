@@ -4,7 +4,7 @@ import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 
 import { ChromeStorageService } from './chrome-storage.service';
-import { Icon, IRule } from './rule-model';
+import { IIcon, IRule } from './rule-model';
 
 @Injectable()
 export class RuleService {
@@ -14,11 +14,11 @@ export class RuleService {
 
   /**
    * Returns the list of default icons
-   * @returns {Observable<Icon[]>}
+   * @returns {Observable<IIcon[]>}
    */
-  getDefaultIcons(): Observable<Icon[]> {
+  getDefaultIcons(): Observable<IIcon[]> {
     return this.http.get('assets/default-icons.json')
-      .map((response: Icon[]) => {
+      .map((response: IIcon[]) => {
           return response;
         }
       );

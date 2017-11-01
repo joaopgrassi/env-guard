@@ -1,58 +1,41 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { Router } from '@angular/router';
+import { Observable } from 'rxjs/Observable';
+import { AppMaterialModule } from '../../app-material.module';
+
+import { AppStore } from '../../store/app.store';
+import { MockedNotificationService, MockedChromeStorageService, MockedRouter } from '../../../_mocks/mocks';
 
 import { RuleDashboardComponent } from './rule-dashboard.component';
 import { NotificationService } from '../../common/notification.service';
-import { Subject } from 'rxjs/Subject';
-import { Router } from '@angular/router';
 
-import { Icon, IRule } from '../common/rule-model';
-import { Observable } from 'rxjs/Observable';
-import { ChromeStorageService } from '../common/chrome-storage.service';
-import { RuleService } from '../common/rule.service';
-
-import { AppMaterialModule } from '../../app-material.module';
-import { RuleActions } from '../common/rule.actions';
-import { AppStore } from '../../store/app.store';
-
-
-class MockedChromeStorageService {
-  setAll(rules: IRule[]): Observable<any> {
-    return Observable.of({});
-  }
-
-  getAllFromLocalStorage(): Observable<IRule[]> {
-    return Observable.of([]);
-  }
-}
+import { IIcon, IRule, Rule, Icon } from '../common/rule-model';
+import { ChromeStorageService, RuleService, RuleActions } from '../common/';
 
 class MockedRuleService {
-  getDefaultIcons(): Observable<Icon[]> {
-    return Observable.of([]);
+
+  public static mockedIcons: IIcon[] = [
+    new Icon('Production', 'prod', 'icons/red.png'),
+    new Icon('Staging', 'staging', 'icons/green.png')
+  ];
+
+  public static mockedRules: IRule[] = [
+    new Rule(null, 'Production', 'http://production.com', 'Exact', 'Production', MockedRuleService.mockedIcons[0]),
+    new Rule(null, 'Staging', 'http://staging.com', 'Exact', 'Staging', MockedRuleService.mockedIcons[1])
+  ];
+
+  getAllRules$: Observable<IRule[]> = Observable.of(MockedRuleService.mockedRules);
+  getAllDefaultIcons$: Observable<IIcon[]> = Observable.of(MockedRuleService.mockedIcons);
+
+  getDefaultIcons(): Observable<IIcon[]> {
+    return this.getAllDefaultIcons$;
   }
 
   saveRules(rules: IRule[]) {
   }
 
   getAllRules(): Observable<IRule[]> {
-    return Observable.of([]);
-  }
-}
-
-class MockedNotificationService {
-  notifySuccess(message: string) {
-  }
-
-  notifyError(message: string) {
-  }
-
-  notifyAlert(message: string) {
-  }
-}
-
-class MockedRouter {
-  events: Subject<any> = new Subject();
-
-  navigate() {
+    return this.getAllRules$;
   }
 }
 
@@ -62,15 +45,14 @@ fdescribe('RuleDashboardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [AppMaterialModule, AppStore ],
+      imports: [AppMaterialModule, AppStore],
       providers: [
         { provide: Router, useClass: MockedRouter },
-        { provide: ChromeStorageService, useClass: MockedChromeStorageService },
-        { provide: RuleService, useClass: MockedRuleService },
         { provide: RuleActions },
-        { provide: NotificationService, useClass: MockedNotificationService }
+        { provide: NotificationService, useClass: MockedNotificationService },
+        { provide: ChromeStorageService, useClass: MockedChromeStorageService },
+        { provide: RuleService, useClass: MockedRuleService }
       ],
-
       declarations: [RuleDashboardComponent]
     })
       .compileComponents();
