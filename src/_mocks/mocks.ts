@@ -22,3 +22,12 @@ export class MockedRouter {
   events: Subject<any> = new Subject();
   navigate() { }
 }
+
+ export class MockedActivatedRoute {
+   params: Observable<any> = Observable.of({});
+   url: Observable<any[]> = Observable.of([]);
+   snapshot = {
+     params: [],
+     url: {}
+   };
+ }

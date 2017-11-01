@@ -39,7 +39,7 @@ class MockedRuleService {
   }
 }
 
-fdescribe('RuleDashboardComponent', () => {
+describe('RuleDashboardComponent', () => {
   let component: RuleDashboardComponent;
   let fixture: ComponentFixture<RuleDashboardComponent>;
 
