@@ -24,7 +24,7 @@ export class RuleDashboardComponent implements OnInit {
   constructor(private router: Router,
               private ruleActions: RuleActions,
               private notificationService: NotificationService,
-              private store: Store<any>) {
+              private store: Store<IAppStore>) {
   }
 
   ngOnInit() {

@@ -7,6 +7,7 @@
     "target": "es5",
     "types": [
       "jasmine",
+      "chrome",
       "node"
     ]
   },
