@@ -1,4 +1,6 @@
-# Env-Guard
+# Env-Guard 
+
+[![Build Status](https://travis-ci.org/joaopgrassi/env-guard.svg?branch=master)](https://travis-ci.org/joaopgrassi/env-guard)
 
 No more mistakes while messing around 'production like' environments.
 
