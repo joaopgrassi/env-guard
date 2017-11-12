@@ -34,13 +34,13 @@
         <mat-header-cell *matHeaderCellDef> Actions</mat-header-cell>
         <mat-cell *matCellDef="let element">
           <button mat-icon-button (click)="edit(element)">
-            <mat-icon class="md-24" aria-label="Example icon-button with a heart icon">mode_edit</mat-icon>
+            <mat-icon class="md-24" aria-label="edit">mode_edit</mat-icon>
           </button>
           <button mat-icon-button (click)="duplicate(element)">
-            <mat-icon class="md-24" aria-label="Example icon-button with a heart icon">content_copy</mat-icon>
+            <mat-icon class="md-24" aria-label="duplicate">content_copy</mat-icon>
           </button>
           <button mat-icon-button (click)="remove(element)">
-            <mat-icon class="md-24" aria-label="Example icon-button with a heart icon">delete</mat-icon>
+            <mat-icon class="md-24" aria-label="delete">delete</mat-icon>
           </button>
         </mat-cell>
       </ng-container>
@@ -51,7 +51,7 @@
 
   </mat-card>
   <span class="done">
-    <button mat-fab (click)="newRule()">
+    <button mat-fab class="data-test-addButton" (click)="newRule()">
       <mat-icon>add circle</mat-icon>
     </button>
   </span>
