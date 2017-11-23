@@ -6,13 +6,13 @@ import { By } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 
 import { AppStore } from '../../store/app.store';
-import { MockedNotificationService, MockedChromeStorageService, MockedRouter } from '../../../_mocks/mocks';
+import { MockedChromeStorageService, MockedNotificationService, MockedRouter } from '../../../_mocks/mocks';
 
 import { RuleDashboardComponent } from './rule-dashboard.component';
 import { NotificationService } from '../../common/notification.service';
 
-import { IIcon, IRule, Rule, Icon } from '../common/rule-model';
-import { ChromeStorageService, RuleService, RuleActions } from '../common/';
+import { Icon, IIcon, IRule, Rule } from '../common/rule-model';
+import { ChromeStorageService, RuleActions, RuleService } from '../common/';
 import { IAppStore } from '../../store/common/store.model';
 
 class MockedRuleService {

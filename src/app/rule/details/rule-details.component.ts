@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map';
 import { NotificationService } from '../../common/notification.service';
 import { IAppStore } from '../../store/common/store.model';
 
-import { IIcon, IRule, Rule, OperatorRules, RuleService, RuleActions } from '../common/';
+import { IIcon, IRule, OperatorRules, Rule, RuleActions, RuleService } from '../common/';
 
 @Component({
   selector: 'app-rule-details',
@@ -30,26 +30,27 @@ export class RuleDetailsComponent implements OnInit {
               private ruleActions: RuleActions,
               private notificationService: NotificationService,
               private store: Store<IAppStore>) {
-
-    const id: string = activateRoute.snapshot.params.id;
-
-    if (id === 'add') {
-      this.newRule = true;
-    } else {
-      this.store.dispatch(this.ruleActions.getRule(id));
-    }
-    store.select(x => x.selectedRule).subscribe((rule: IRule) => {
-      this.currentRule = rule;
-    });
   }
 
   ngOnInit() {
+    this.activateRoute.paramMap.subscribe(p => {
+      const id = p.get('id');
+      if (id === 'add') {
+        this.newRule = true;
+      } else {
+        this.store.dispatch(this.ruleActions.getRule(id));
+      }
+    });
+
+    this.store.select(x => x.selectedRule).subscribe((rule: IRule) => {
+      this.currentRule = rule;
+      this.setUpForm(this.currentRule);
+    });
+
     this.operatorKeys = Object.keys(OperatorRules).map(x => x);
     this.ruleService.getDefaultIcons().subscribe((resp: IIcon[]) => {
       this.icons = resp;
     });
-
-    this.setUpForm();
   }
 
   /**
@@ -88,14 +89,14 @@ export class RuleDetailsComponent implements OnInit {
     this.goToDashboard();
   }
 
-  private setUpForm() {
+  private setUpForm(currentRule: IRule) {
     this.ruleForm = this.formBuilder.group({
-      id: [this.currentRule.id],
-      name: [this.currentRule.name, [Validators.required]],
-      url: [this.currentRule.url, [Validators.required]],
-      operator: [this.currentRule.operator, [Validators.required]],
-      title: [this.currentRule.title],
-      icon: [this.currentRule.icon ? this.currentRule.icon.key : '', [Validators.required]]
+      id: [currentRule.id],
+      name: [currentRule.name, [Validators.required]],
+      url: [currentRule.url, [Validators.required]],
+      operator: [currentRule.operator, [Validators.required]],
+      title: [currentRule.title],
+      icon: [currentRule.icon ? currentRule.icon.key : '', [Validators.required]]
     });
   }
 
