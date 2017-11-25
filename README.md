@@ -1,6 +1,7 @@
 # Env-Guard 
 
 [![Build Status](https://travis-ci.org/joaopgrassi/env-guard.svg?branch=master)](https://travis-ci.org/joaopgrassi/env-guard)
+[![Coverage Status](https://coveralls.io/repos/github/joaopgrassi/env-guard/badge.svg)](https://coveralls.io/github/joaopgrassi/env-guard)
 
 No more mistakes while messing around 'production like' environments.
 
