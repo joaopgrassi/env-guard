@@ -24,7 +24,8 @@ class MockedRuleService {
 
   public static mockedIcons: IIcon[] = [
     new Icon('Production', 'prod', 'icons/red.png'),
-    new Icon('Staging', 'staging', 'icons/green.png')
+    new Icon('Staging', 'staging', 'icons/blue.png'),
+    new Icon('Development', 'dev', 'icons/green.png')
   ];
 
   public static mockedRules: IRule[] = [
@@ -32,18 +33,9 @@ class MockedRuleService {
     new Rule(null, 'Staging', 'http://staging.com', 'Exact', 'Staging', MockedRuleService.mockedIcons[1])
   ];
 
-  getAllRules$: Observable<IRule[]> = Observable.of(MockedRuleService.mockedRules);
   getAllDefaultIcons$: Observable<IIcon[]> = Observable.of(MockedRuleService.mockedIcons);
-
   getDefaultIcons(): Observable<IIcon[]> {
     return this.getAllDefaultIcons$;
-  }
-
-  saveRules(rules: IRule[]) {
-  }
-
-  getAllRules(): Observable<IRule[]> {
-    return this.getAllRules$;
   }
 }
 
@@ -54,6 +46,7 @@ describe('RuleDetailsComponent', () => {
   let activateRoute = new MockedActivatedRoute();
   let store: Store<IAppStore>;
   let actions: RuleActions;
+  let ruleService: RuleService;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
@@ -78,25 +71,36 @@ describe('RuleDetailsComponent', () => {
     router = TestBed.get(Router);
     store = TestBed.get(Store);
     actions = TestBed.get(RuleActions);
+    ruleService = TestBed.get(RuleService);
+
+    spyOn(store, 'dispatch').and.callThrough();
 
     // load data into the store before test starts
     store.dispatch(actions.loadRuleSuccess(MockedRuleService.mockedRules));
-
-    fixture.detectChanges();
   });
 
   it('should be created', () => {
     expect(component).toBeTruthy();
   });
 
+  it('should load environment icons on ngInit', fakeAsync(() => {
+    spyOn(ruleService, 'getDefaultIcons').and.callThrough();
+
+    fixture.detectChanges();
+
+    expect(ruleService.getDefaultIcons).toHaveBeenCalled();
+  }));
+
   it('should navigate to dashboard on cancel click', fakeAsync(() => {
     spyOn(router, 'navigate').and.callThrough();
-
-    activateRoute.testParamMap = { id: 'add' };
+    spyOn(component, 'cancel').and.callThrough();
 
     const cancelButton = fixture.nativeElement.querySelector('button[data-spec-cancel]');
     cancelButton.click();
 
+    fixture.detectChanges();
+
+    expect(component.cancel).toHaveBeenCalled();
     expect(router.navigate).toHaveBeenCalledWith(['rules/dashboard']);
   }));
 
@@ -106,24 +110,62 @@ describe('RuleDetailsComponent', () => {
     expect(component.currentRule).toEqual(<IRule>{});
   });
 
+  it('should dispatch addRule action to store on new rule save', () => {
+    spyOn(actions, 'addRule').and.callThrough();
+    spyOn(router, 'navigate').and.callThrough();
+
+    fixture.autoDetectChanges();
+
+    activateRoute.testParamMap = { id: 'add' };
+
+    // Set new rule to the form
+    const expectedRule = new Rule(null, 'Test', 'http://test.com', 'Exact', 'Development',
+      MockedRuleService.mockedIcons[2]);
+    component.ruleForm.patchValue(expectedRule);
+    component.ruleForm.get('icon').setValue(expectedRule.icon.key);
+
+    const expectedAction = actions.addRule(expectedRule);
+
+    // Act
+    const saveButton = fixture.nativeElement.querySelector('button[data-spec-save]');
+    saveButton.click();
+
+    expect(store.dispatch).toHaveBeenCalledWith(expectedAction);
+    expect((actions.addRule as any).calls.mostRecent().args[0]).toEqual(expectedRule);
+    expect(router.navigate).toHaveBeenCalledWith(['rules/dashboard']);
+  });
+
   it('should load rule from store if id is passed on url', () => {
     const expectedRule = MockedRuleService.mockedRules[0];
+    fixture.autoDetectChanges();
 
     activateRoute.testParamMap = { id: expectedRule.id };
 
     expect(component.currentRule).toEqual(expectedRule);
     expect(component.ruleForm.value.id).toEqual(expectedRule.id);
-
   });
-
-  it('should dispatch addRule action to store on new rule save', () => {
-
-  });
-
-
 
   it('should dispatch saveRule action to store on editing existing rule', () => {
+    spyOn(actions, 'saveRule').and.callThrough();
+    spyOn(router, 'navigate').and.callThrough();
 
+    fixture.autoDetectChanges();
+
+    const expectedRule = MockedRuleService.mockedRules[0];
+    activateRoute.testParamMap = { id: expectedRule.id };
+
+    // Change the name of the rule
+    expectedRule.name = `${expectedRule.name} - Edited`;
+    component.ruleForm.get('name').setValue(expectedRule.name);
+    const expectedAction = actions.saveRule(expectedRule);
+
+    // Act
+    const saveButton = fixture.nativeElement.querySelector('button[data-spec-save]');
+    saveButton.click();
+
+    expect(store.dispatch).toHaveBeenCalledWith(expectedAction);
+    expect((actions.saveRule as any).calls.mostRecent().args[0]).toEqual(expectedRule);
+    expect(router.navigate).toHaveBeenCalledWith(['rules/dashboard']);
   });
 
 });
