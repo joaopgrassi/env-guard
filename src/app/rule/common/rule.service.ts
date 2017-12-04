@@ -29,7 +29,7 @@ export class RuleService {
    * @param {IRule[]} rules
    * @returns {Promise<any>}
    */
-  saveRules(rules: IRule[]) {
+  saveRules(rules: IRule[]): Observable<boolean> {
     return this.chromeStorage.setAll(rules);
   }
 

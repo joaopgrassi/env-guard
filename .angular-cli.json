@@ -11,6 +11,7 @@
         "assets",
         "favicon.ico",
         "eventPage.js",
+        "content.js",
         "manifest.json"
       ],
       "index": "index.html",

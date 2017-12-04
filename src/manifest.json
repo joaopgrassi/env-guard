@@ -20,8 +20,11 @@
     "scripts": ["eventPage.js"],
     "persistent": false
   },
+  "content_scripts": [
+    { "matches": ["<all_urls>"], "js": ["content.js"] }
+  ],
   "web_accessible_resources": [
-    "./*"
+    "assets/icons/*"
   ],
   "permissions": [
     "http://*/*",

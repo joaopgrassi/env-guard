@@ -7,6 +7,7 @@ import { IRule } from './rule-model';
 export class RuleActions {
 
   static SYNC_LOCAL_STORAGE = '[Rule] Sync Local Storage';
+  static SYNC_LOCAL_STORAGE_SUCCESS = '[Rule] Sync Local Storage Success';
   static LOAD_RULES = '[Rule] Load Rules';
   static LOAD_RULES_SUCCESS = '[Rules] Load Rules Success';
 
@@ -19,6 +20,12 @@ export class RuleActions {
   syncLocalStorage(): Action {
     return {
       type: RuleActions.SYNC_LOCAL_STORAGE
+    };
+  }
+
+  syncLocalStorageSuccess(): Action {
+    return {
+      type: RuleActions.SYNC_LOCAL_STORAGE_SUCCESS
     };
   }
 

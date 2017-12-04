@@ -26,9 +26,9 @@ export class RuleEffects {
   @Effect() syncRules$ = this.actions$
     .ofType<AppAction<IRule[]>>(RuleActions.SYNC_LOCAL_STORAGE)
     .withLatestFrom(this.store$.select(s => s.rules))
-    .map(([action, state]) => {
-      this.ruleService.saveRules(state);
-    });
+    .switchMap((([action, state]) => this.ruleService.saveRules(state)
+      .map((_: boolean) => this.ruleActions.syncLocalStorageSuccess())
+    ));
 
   /**
    * Get a rule by it's Id

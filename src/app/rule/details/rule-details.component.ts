@@ -81,6 +81,10 @@ export class RuleDetailsComponent implements OnInit {
     } else {
       this.store.dispatch(this.ruleActions.saveRule(rule));
     }
+
+    // TODO: This should be refactored and listen to ActionSubject
+    this.store.dispatch(this.ruleActions.syncLocalStorage());
+
     this.goToDashboard();
     this.notificationService.notifySuccess('Rule Saved!');
   }
