@@ -12,12 +12,12 @@
     applyRules = function () {
       for (var i = 0; i < allRules.length; i++) {
         switch (allRules[i].operator) {
-          case 'Starts with':
+          case 'StartsWith':
             if (location.href.startsWith(allRules[i].url) === true) {
               rule = allRules[i];
             }
             break;
-          case 'Ends with':
+          case 'EndsWith':
             if (location.href.endsWith(allRules[i].url) === true) {
               rule = allRules[i];
             }
