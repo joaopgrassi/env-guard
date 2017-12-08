@@ -13,6 +13,13 @@ openExtension = function () {
   });
 };
 
+chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
+  // sends a message to content.js only when Title or Favicon have changed.
+  if (changeInfo.title || changeInfo.favIconUrl) {
+    chrome.tabs.sendMessage(tabId, changeInfo);
+  }
+});
+
 chrome.browserAction.onClicked.addListener(function () {
   openExtension();
 });

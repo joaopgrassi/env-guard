@@ -46,32 +46,47 @@
         return;
       }
 
-      function changeTabIcon(iconPath) {
-        var el = document.querySelectorAll('head link[rel*="icon"]');
-        var icon = chrome.extension.getURL('/assets/' + iconPath);
+      changeTabTitle(rule);
+      changeTabIcon(rule);
 
-        Array.prototype.forEach.call(el, function (node) {
-          node.parentNode.removeChild(node);
-        });
-
-        var link = document.createElement('link');
-        link.type = 'image/x-icon';
-        link.rel = 'shortcut icon';
-        link.href = icon;
-
-        document.getElementsByTagName('head')[0].appendChild(link);
-      }
-
-      if (rule.title !== null) {
-        if (document.title !== null) {
-          document.title = rule.title;
+      // register callback for tab changes
+      chrome.runtime.onMessage.addListener(
+        function (message, sender, sendResponse) {
+          if (message.title) {
+            changeTabTitle(rule);
+          } else if (message.favIconUrl) {
+            changeTabIcon(rule);
+          }
         }
-      }
-
-      if (rule.icon !== null) {
-        changeTabIcon(rule.icon.path);
-      }
+      );
     };
+
+    function changeTabTitle(rule) {
+      if (rule.title === null) {
+        return;
+      }
+      document.title = rule.title;
+    }
+
+    function changeTabIcon(rule) {
+      if (rule.icon === null)
+        return;
+
+      var el = document.querySelectorAll('head link[rel*="icon"]');
+      var icon = chrome.extension.getURL('/assets/' + rule.icon.path);
+
+      Array.prototype.forEach.call(el, function (node) {
+        node.parentNode.removeChild(node);
+      });
+
+      var link = document.createElement('link');
+      link.type = 'image/x-icon';
+      link.rel = 'shortcut icon';
+      link.href = icon;
+
+      document.getElementsByTagName('head')[0].appendChild(link);
+    }
+
     applyRules();
   });
 })();
