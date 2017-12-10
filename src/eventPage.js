@@ -26,6 +26,6 @@ chrome.browserAction.onClicked.addListener(function () {
 
 chrome.runtime.onInstalled.addListener(function (details) {
   if (details.reason === 'install') {
-    openExtension('install');
+    openExtension();
   }
 });

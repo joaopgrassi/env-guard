@@ -65,6 +65,9 @@ export class RuleDashboardComponent implements OnInit {
    */
   remove(rule: IRule) {
     this.store.dispatch(this.ruleActions.deleteRule(rule));
+
+    // TODO: This should be refactored and listen to ActionSubject
+    this.store.dispatch(this.ruleActions.syncLocalStorage());
   }
 }
 

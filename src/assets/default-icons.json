@@ -2,16 +2,20 @@
   {
     "name": "Production",
     "key": "prod",
-    "path": "icons/red.png"
+    "path": "icons/red.png",
+    "iconBaseColor": "#EB1342"
   },
   {
     "name": "Staging",
     "key": "staging",
-    "path": "icons/blue.png"
+    "path": "icons/blue.png",
+    "iconBaseColor": "#579AF2"
+
   },
   {
     "name": "Development",
     "key": "dev",
-    "path": "icons/green.png"
+    "path": "icons/green.png",
+    "iconBaseColor": "#0ECC7D"
   }
 ]

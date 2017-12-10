@@ -48,6 +48,7 @@
 
       changeTabTitle(rule);
       changeTabIcon(rule);
+      addSiteBanner(rule);
 
       // register callback for tab changes
       chrome.runtime.onMessage.addListener(
@@ -85,6 +86,27 @@
       link.href = icon;
 
       document.getElementsByTagName('head')[0].appendChild(link);
+    }
+
+    function addSiteBanner(rule) {
+      if (!rule.banner) {
+        return;
+      }
+
+      var envGuardSpan = document.createElement("envGuardSpan");
+      envGuardSpan.id = "envGuardSpan";
+      envGuardSpan.style.fontSize = "23px";
+      envGuardSpan.style.fontWeight = "bold";
+      envGuardSpan.textContent = (rule.banner) ? rule.banner.text : "PRODUCTION";
+      envGuardSpan.style.color = (rule.banner) ? rule.banner.textColor : "#FFF";
+      var elemDiv = document.createElement('div');
+      elemDiv.style.width = 'width:100%';
+      elemDiv.style.height = 'height:10%';
+      elemDiv.style.backgroundColor = (rule.banner) ? rule.banner.bgColor : "#EB1342";
+      elemDiv.style.textAlign = 'center';
+      elemDiv.appendChild(envGuardSpan);
+
+      window.document.body.insertBefore(elemDiv, window.document.body.firstChild);
     }
 
     applyRules();

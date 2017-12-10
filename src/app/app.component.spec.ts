@@ -19,8 +19,8 @@ import { Icon, IIcon, IRule, Rule } from './rule/common/rule-model';
 class MockedRuleService {
 
   public static mockedIcons: IIcon[] = [
-    new Icon('Production', 'prod', 'icons/red.png'),
-    new Icon('Staging', 'staging', 'icons/green.png')
+    new Icon('Production', 'prod', 'icons/red.png', '#EB1342'),
+    new Icon('Staging', 'staging', 'icons/green.png', '#579AF2')
   ];
 
   public static mockedRules: IRule[] = [

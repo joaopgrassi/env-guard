@@ -5,10 +5,10 @@ import { Store } from '@ngrx/store';
 
 import 'rxjs/add/operator/map';
 
-import { NotificationService } from '../../common/notification.service';
-import { IAppStore } from '../../store/common/store.model';
+import { NotificationService } from '../../common';
+import { IAppStore } from '../../store';
 
-import { IIcon, IRule, OperatorRules, Rule, RuleActions, RuleService } from '../common/';
+import { IIcon, IRule, OperatorRules, Rule, RuleActions, RuleBanner, RuleService } from '../common/';
 
 @Component({
   selector: 'app-rule-details',
@@ -22,6 +22,7 @@ export class RuleDetailsComponent implements OnInit {
   operatorKeys: any;
   operatorRules = OperatorRules;
   icons: IIcon[];
+  useBanner: boolean;
 
   constructor(private activateRoute: ActivatedRoute,
               private router: Router,
@@ -64,6 +65,14 @@ export class RuleDetailsComponent implements OnInit {
     }
   }
 
+  toggleAddBannerCheckbox() {
+    if (!this.currentRule.banner) {
+      this.addBanner();
+    } else {
+      this.ruleForm.value.banner = null;
+    }
+  }
+
   /**
    * Saves or updates a rule
    */
@@ -74,7 +83,8 @@ export class RuleDetailsComponent implements OnInit {
       this.ruleForm.value.url,
       this.ruleForm.value.operator,
       this.ruleForm.value.title,
-      this.getIcon(this.ruleForm.value.icon));
+      this.getIcon(this.ruleForm.value.icon),
+      this.ruleForm.value.banner);
 
     if (this.newRule) {
       this.store.dispatch(this.ruleActions.addRule(rule));
@@ -93,6 +103,14 @@ export class RuleDetailsComponent implements OnInit {
     this.goToDashboard();
   }
 
+  /**
+   * Initializes a new Banner with default values extracted from Rule.
+   */
+  private addBanner() {
+    const icon = this.getIcon(this.ruleForm.value.icon);
+    this.currentRule.banner = new RuleBanner(this.currentRule.name, icon.iconBaseColor, '#FFF');
+  }
+
   private setUpForm(currentRule: IRule) {
     this.ruleForm = this.formBuilder.group({
       id: [currentRule.id],
@@ -100,8 +118,17 @@ export class RuleDetailsComponent implements OnInit {
       url: [currentRule.url, [Validators.required]],
       operator: [currentRule.operator, [Validators.required]],
       title: [currentRule.title],
-      icon: [currentRule.icon ? currentRule.icon.key : '', [Validators.required]]
+      icon: [(currentRule.icon) ? currentRule.icon.key : '', [Validators.required]],
+      banner: this.formBuilder.group({
+        text: [(currentRule.banner) ? currentRule.banner.text : ''],
+        bgColor: [(currentRule.banner) ? currentRule.banner.bgColor : ''],
+        textColor: [(currentRule.banner) ? currentRule.banner.textColor : '']
+      })
     });
+
+    if (this.currentRule.banner) {
+      this.useBanner = true;
+    }
   }
 
   /**
