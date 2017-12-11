@@ -8,7 +8,7 @@ import 'rxjs/add/operator/map';
 import { NotificationService } from '../../common';
 import { IAppStore } from '../../store';
 
-import { IIcon, IRule, OperatorRules, Rule, RuleActions, RuleBanner, RuleService } from '../common/';
+import { IIcon, IRule, IRuleBanner, OperatorRules, Rule, RuleActions, RuleBanner, RuleService } from '../common/';
 
 @Component({
   selector: 'app-rule-details',
@@ -65,11 +65,14 @@ export class RuleDetailsComponent implements OnInit {
     }
   }
 
+  /**
+   * Verifies if needs to initialize the Banner Form.
+   */
   toggleAddBannerCheckbox() {
-    if (!this.currentRule.banner) {
-      this.addBanner();
-    } else {
-      this.ruleForm.value.banner = null;
+    if (this.useBanner) {
+      if (!this.currentRule.banner) {
+        this.initializeBanner();
+      }
     }
   }
 
@@ -83,8 +86,11 @@ export class RuleDetailsComponent implements OnInit {
       this.ruleForm.value.url,
       this.ruleForm.value.operator,
       this.ruleForm.value.title,
-      this.getIcon(this.ruleForm.value.icon),
-      this.ruleForm.value.banner);
+      this.getIcon(this.ruleForm.value.icon));
+
+    if (this.useBanner) {
+      rule.addRuleBanner(this.ruleForm.get('banner').value);
+    }
 
     if (this.newRule) {
       this.store.dispatch(this.ruleActions.addRule(rule));
@@ -104,11 +110,30 @@ export class RuleDetailsComponent implements OnInit {
   }
 
   /**
-   * Initializes a new Banner with default values extracted from Rule.
+   * Initializes a new Banner Form with default values extracted from Rule.
    */
-  private addBanner() {
+  private initializeBanner() {
     const icon = this.getIcon(this.ruleForm.value.icon);
-    this.currentRule.banner = new RuleBanner(this.currentRule.name, icon.iconBaseColor, '#FFF');
+    this.addBannerFormGroup(new RuleBanner(this.ruleForm.value.name, icon.iconBaseColor, '#FFF'));
+  }
+
+  /**
+   * Adds or Updates the formGroup for the Rule Banner
+   * @param {IRuleBanner} banner
+   */
+  private addBannerFormGroup(banner?: IRuleBanner) {
+    // if was already added before just update the values with patchValue
+    if (this.ruleForm.contains('banner')) {
+      this.ruleForm.get('banner').patchValue(banner);
+      return;
+    }
+
+    const bannerFormGroup = this.formBuilder.group({
+      text: [banner.text],
+      bgColor: [banner.bgColor],
+      textColor: [banner.textColor]
+    });
+    this.ruleForm.addControl('banner', bannerFormGroup);
   }
 
   private setUpForm(currentRule: IRule) {
@@ -118,16 +143,12 @@ export class RuleDetailsComponent implements OnInit {
       url: [currentRule.url, [Validators.required]],
       operator: [currentRule.operator, [Validators.required]],
       title: [currentRule.title],
-      icon: [(currentRule.icon) ? currentRule.icon.key : '', [Validators.required]],
-      banner: this.formBuilder.group({
-        text: [(currentRule.banner) ? currentRule.banner.text : ''],
-        bgColor: [(currentRule.banner) ? currentRule.banner.bgColor : ''],
-        textColor: [(currentRule.banner) ? currentRule.banner.textColor : '']
-      })
+      icon: [(currentRule.icon) ? currentRule.icon.key : '', [Validators.required]]
     });
 
     if (this.currentRule.banner) {
       this.useBanner = true;
+      this.addBannerFormGroup(this.currentRule.banner);
     }
   }
 

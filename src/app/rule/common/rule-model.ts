@@ -92,6 +92,10 @@ export class Rule implements IRule {
     this.icon = icon;
     this.banner = banner;
   }
+
+  public addRuleBanner(banner: IRuleBanner) {
+    this.banner = banner;
+  }
 }
 
 export class StorageRules {

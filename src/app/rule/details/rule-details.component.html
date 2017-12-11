@@ -14,7 +14,7 @@
             <div class="row mb-3">
               <div class="col-lg-10 col-md-12 col-sm-12">
                 <mat-form-field class="input-full">
-                  <input matInput placeholder="Rule alias" formControlName="name" [(ngModel)]="currentRule.name">
+                  <input matInput placeholder="Rule alias" formControlName="name">
                   <mat-error *ngIf="ruleForm.controls.name.errors">
                     Rule alias is <strong>required</strong>
                   </mat-error>
@@ -25,14 +25,14 @@
             <div class="row mb-2">
               <div class="col-lg-3 col-md-12 col-sm-12">
                 <mat-form-field class="input-full">
-                  <mat-select placeholder="Operator" formControlName="operator" [(ngModel)]="currentRule.operator">
+                  <mat-select placeholder="Operator" formControlName="operator">
                     <mat-option *ngFor="let key of operatorKeys" [value]="key">{{operatorRules[key]}}</mat-option>
                   </mat-select>
                 </mat-form-field>
               </div>
               <div class="col-lg-7 col-md-12 col-sm-12">
                 <mat-form-field class="input-full">
-                  <input matInput placeholder="URL" formControlName="url" [(ngModel)]="currentRule.url">
+                  <input matInput placeholder="URL" formControlName="url">
                   <mat-error *ngIf="ruleForm.controls.url.errors">
                     URL is <strong>required</strong>
                   </mat-error>
@@ -43,7 +43,7 @@
             <div class="row mb-3">
               <div class="col-lg-10 col-md-12 col-sm-12">
                 <mat-form-field class="input-full">
-                  <input matInput placeholder="Tab Title" formControlName="title" [(ngModel)]="currentRule.title">
+                  <input matInput placeholder="Tab Title" formControlName="title">
                 </mat-form-field>
               </div>
             </div>
@@ -53,7 +53,6 @@
                 <mat-form-field>
                   <mat-select class="input-full" placeholder="Tab icon"
                               formControlName="icon"
-                              [(ngModel)]="currentRule.icon && currentRule.icon.key"
                               #select="matSelect">
                     <mat-select-trigger>
                       <img class="md-img-select mat-icon-16x" src="assets/{{getIcon(select.selected?.value)?.path}}"
@@ -69,7 +68,7 @@
               </div>
             </div>
           </div>
-          <div fxFlex formGroupName="banner">
+          <div fxFlex>
             <!-- banner -->
             <div class="row mb-3">
               <div class="col-lg-5 col-md-3 col-sm-12">
@@ -81,13 +80,12 @@
                 </mat-checkbox>
               </div>
             </div>
-            <mat-card class="mat-card-nomargin" *ngIf="useBanner">
+            <mat-card class="mat-card-nomargin" *ngIf="useBanner" formGroupName="banner">
               <!-- banner text -->
               <div class="row mb-2">
                 <div class="col-lg-10 col-md-12 col-sm-12">
                   <mat-form-field class="input-full">
-                    <input matInput placeholder="Banner text" formControlName="text"
-                           [(ngModel)]="currentRule.banner.text">
+                    <input matInput placeholder="Banner text" formControlName="text">
                   </mat-form-field>
                 </div>
               </div>
@@ -95,14 +93,12 @@
               <div class="row mb-2">
                 <div class="col-lg-5 col-md-12 col-sm-12">
                   <mat-form-field class="input-full">
-                    <input matInput placeholder="Banner background color" formControlName="bgColor"
-                           [(ngModel)]="currentRule.banner.bgColor">
+                    <input matInput placeholder="Banner background color" formControlName="bgColor">
                   </mat-form-field>
                 </div>
                 <div class="col-lg-5 col-md-12 col-sm-12">
                   <mat-form-field class="input-full">
-                    <input matInput placeholder="Banner text color" formControlName="textColor"
-                           [(ngModel)]="currentRule.banner.textColor">
+                    <input matInput placeholder="Banner text color" formControlName="textColor">
                   </mat-form-field>
                 </div>
               </div>

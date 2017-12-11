@@ -121,7 +121,6 @@ describe('RuleDetailsComponent', () => {
     // Set new rule to the form
     const expectedRule = new Rule(null, 'Test', 'http://test.com', 'Exact', 'Development',
       MockedRuleService.mockedIcons[2]);
-    expectedRule.banner = {text: 'abc', bgColor: 'red', textColor: 'white'};
     component.ruleForm.patchValue(expectedRule);
     component.ruleForm.get('icon').setValue(expectedRule.icon.key);
 
@@ -164,7 +163,7 @@ describe('RuleDetailsComponent', () => {
     const saveButton = fixture.nativeElement.querySelector('button[data-spec-save]');
     saveButton.click();
 
-    // expect(store.dispatch).toHaveBeenCalledWith(expectedAction);
+    expect(store.dispatch).toHaveBeenCalledWith(expectedAction);
     expect((actions.saveRule as any).calls.mostRecent().args[0]).toEqual(expectedRule);
     expect(router.navigate).toHaveBeenCalledWith(['rules/dashboard']);
   });
