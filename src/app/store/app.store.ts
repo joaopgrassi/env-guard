@@ -7,7 +7,7 @@ import { RuleEffects } from '../rule/';
 
 @NgModule({
   imports: [
-    StoreModule.forRoot(reducers, []),
+    StoreModule.forRoot(reducers),
     EffectsModule.forRoot([RuleEffects])
   ]
 })

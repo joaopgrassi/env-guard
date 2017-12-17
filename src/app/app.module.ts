@@ -1,15 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HttpClientModule } from '@angular/common/http';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { RouterModule } from '@angular/router';
 import { AppMaterialModule } from './app-material.module';
 import { rootRouterConfig } from './app-routes';
-import { MATERIAL_COMPATIBILITY_MODE } from '@angular/material';
-
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './_layout/';
 import { NotificationService } from './common';
@@ -30,7 +27,6 @@ import { RuleDashboardComponent, RuleDetailsComponent, RuleService, ChromeStorag
     RouterModule.forRoot(rootRouterConfig, { useHash: true }),
     FormsModule,
     ReactiveFormsModule,
-    HttpModule,
     AppMaterialModule,
     FlexLayoutModule,
     BrowserAnimationsModule,
@@ -40,8 +36,7 @@ import { RuleDashboardComponent, RuleDetailsComponent, RuleService, ChromeStorag
     RuleService,
     NotificationService,
     ChromeStorageService,
-    RuleActions,
-    {provide: MATERIAL_COMPATIBILITY_MODE, useValue: true},
+    RuleActions
   ],
   bootstrap: [AppComponent]
 })
