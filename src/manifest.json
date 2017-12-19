@@ -6,13 +6,13 @@
   "author": "Joao Grassi",
   "homepage_url": "https://github.com/joaopgrassi/env-guard",
   "icons": {
-    "16": "assets/icons/green.png",
-    "32": "assets/icons/green.png",
-    "48": "assets/icons/green.png",
-    "128": "assets/icons/green.png"
+    "16": "assets/icons/env_16.png",
+    "32": "assets/icons/env_32.png",
+    "48": "assets/icons/env_48.png",
+    "128": "assets/icons/env_128.png"
   },
   "browser_action": {
-    "default_icon": "assets/icons/green.png"
+    "default_icon": "assets/icons/env_16.png"
   },
   "content_security_policy": "script-src 'self' 'unsafe-eval'; object-src 'self'",
   "options_page": "index.html",

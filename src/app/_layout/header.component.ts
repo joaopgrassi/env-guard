@@ -4,7 +4,10 @@ import { Component } from '@angular/core';
   selector: 'app-header',
   template: `
     <mat-toolbar id="appToolbar" class="mat-elevation-z4" color="primary">
-      <span>Env-Guard</span>
+      <span class="mat-button-wrapper">
+    <img alt="env-guard logo" src="../../assets/icons/env_32.png" />
+    <span>Env-Guard</span>
+  </span>
     </mat-toolbar>
   `
 })
