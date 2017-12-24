@@ -1,12 +1,11 @@
-import { AppAction } from '../../store/common/store.model';
-import { ActionReducer } from '@ngrx/store';
+import { AppAction, IAppStore } from '../../store/common/store.model';
+import { ActionReducer, createSelector } from '@ngrx/store';
 import { IRule } from './rule-model';
 import { RuleActions } from './rule.actions';
 
 export type RuleListState = IRule[];
 
 const initialState: RuleListState = [];
-const initialSelectedState = <IRule>{};
 
 /**
  * Rules Reducer
@@ -39,20 +38,16 @@ export function ruleReducer(state = initialState, action: AppAction<IRule>) {
 export const RuleReducer: ActionReducer<any> = ruleReducer;
 
 /**
- * Selected Rule Reducer
- * @param {{}} state
- * @param {AppAction<IRule>} action
- * @returns {any}
+ * Selected Rule Selector
  */
-export function selectedRuleReducer(state = initialSelectedState, action: AppAction<IRule>) {
-  switch (action.type) {
-
-    case RuleActions.GET_RULE_SUCCESS:
-      return action.payload;
-
-    default:
-      return state;
+export const getRuleByIdSelector = (id) => createSelector((state: IAppStore) => state.rules, (allRules) => {
+  if (id === 'add') {
+    return {};
   }
-}
 
-export const SelectedRuleReducer: ActionReducer<any> = selectedRuleReducer;
+  if (allRules && allRules.length > 0) {
+    return allRules.find(item => {
+      return item.id === id;
+    });
+  }
+});

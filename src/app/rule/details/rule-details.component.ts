@@ -8,7 +8,10 @@ import 'rxjs/add/operator/map';
 import { NotificationService } from '../../common';
 import { IAppStore } from '../../store';
 
-import { IIcon, IRule, IRuleBanner, OperatorRules, Rule, RuleActions, RuleBanner, RuleService } from '../common/';
+import {
+  getRuleByIdSelector, IIcon, IRule, IRuleBanner, OperatorRules, Rule, RuleActions, RuleBanner,
+  RuleService
+} from '../common/';
 
 @Component({
   selector: 'app-rule-details',
@@ -23,6 +26,7 @@ export class RuleDetailsComponent implements OnInit {
   operatorRules = OperatorRules;
   icons: IIcon[];
   useBanner: boolean;
+  formReady: boolean;
 
   constructor(private activateRoute: ActivatedRoute,
               private router: Router,
@@ -38,14 +42,14 @@ export class RuleDetailsComponent implements OnInit {
       const id = p.get('id');
       if (id === 'add') {
         this.newRule = true;
-      } else {
-        this.store.dispatch(this.ruleActions.getRule(id));
       }
-    });
-
-    this.store.select(x => x.selectedRule).subscribe((rule: IRule) => {
-      this.currentRule = rule;
-      this.setUpForm(this.currentRule);
+      this.store.select(getRuleByIdSelector(id)).subscribe((rule: IRule) => {
+        if (rule) {
+          this.formReady = true;
+          this.currentRule = rule;
+          this.setUpForm(rule);
+        }
+      });
     });
 
     this.operatorKeys = Object.keys(OperatorRules).map(x => x);

@@ -42,20 +42,6 @@ export class RuleActions {
     };
   }
 
-  getRule(id: string): AppAction<IRule> {
-    return {
-      type: RuleActions.GET_RULE,
-      payload: <IRule>{ id: id }
-    };
-  }
-
-  getRuleSuccess(rule: IRule): AppAction<IRule> {
-    return {
-      type: RuleActions.GET_RULE_SUCCESS,
-      payload: rule
-    };
-  }
-
   saveRule(rule): AppAction<IRule> {
     return {
       type: RuleActions.SAVE_RULE,

@@ -6,7 +6,7 @@
 </div>
 <div class="row">
   <mat-card fxFlex="95%">
-    <form [formGroup]="ruleForm" novalidate>
+    <form [formGroup]="ruleForm" novalidate *ngIf="formReady">
       <mat-card-content>
         <div fxLayout="row" fxLayout.xs="column" fxLayout.sm="column">
           <div fxFlex>

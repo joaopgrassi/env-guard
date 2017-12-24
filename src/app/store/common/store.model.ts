@@ -1,10 +1,9 @@
 import { Action } from '@ngrx/store';
-import { RuleReducer, SelectedRuleReducer } from '../../rule/common/rule.reducer';
+import { RuleReducer } from '../../rule/common/rule.reducer';
 import { IRule } from '../../rule/common/rule-model';
 
 export const reducers = {
-  rules: RuleReducer,
-  selectedRule: SelectedRuleReducer
+  rules: RuleReducer
 };
 
 export interface IAppStore {

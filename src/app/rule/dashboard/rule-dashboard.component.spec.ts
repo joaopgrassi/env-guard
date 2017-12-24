@@ -84,12 +84,10 @@ describe('RuleDashboardComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('add new rule - should dispatch an action to load new rule and navigate to add page', () => {
+  it('add new rule - navigate to details page with add on route', () => {
     const addButton = fixture.debugElement.query(By.css('.data-test-addButton'));
     addButton.triggerEventHandler('click', null);
 
-    const expectedAction = actions.getRule('');
-    expect(store.dispatch).toHaveBeenCalledWith(expectedAction);
     expect(router.navigate).toHaveBeenCalledWith(['rules/add']);
   });
 

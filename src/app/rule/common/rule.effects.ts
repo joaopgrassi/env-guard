@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Actions, Effect, toPayload } from '@ngrx/effects';
+import { Actions, Effect } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/withLatestFrom';
@@ -27,23 +27,8 @@ export class RuleEffects {
     .ofType<AppAction<IRule[]>>(RuleActions.SYNC_LOCAL_STORAGE)
     .withLatestFrom(this.store$.select(s => s.rules))
     .switchMap((([action, state]) => this.ruleService.saveRules(state)
-      .map((_: boolean) => this.ruleActions.syncLocalStorageSuccess())
+        .map((_: boolean) => this.ruleActions.syncLocalStorageSuccess())
     ));
-
-  /**
-   * Get a rule by it's Id
-   * @type {Observable<any>}
-   */
-  @Effect() rule$ = this.actions$
-    .ofType<AppAction<IRule>>(RuleActions.GET_RULE)
-    .withLatestFrom(this.store$.select(s => s.rules))
-    .map(([action, state]) => {
-      if (action.payload.id) {
-        return this.ruleActions.getRuleSuccess(state.find(r => r.id === action.payload.id));
-      } else {
-        return this.ruleActions.getRuleSuccess(<IRule> {});
-      }
-    });
 
   /**
    * Load all rules from the browser storage
