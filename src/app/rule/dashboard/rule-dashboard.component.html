@@ -33,13 +33,13 @@
       <ng-container matColumnDef="actions">
         <mat-header-cell *matHeaderCellDef> Actions</mat-header-cell>
         <mat-cell *matCellDef="let element">
-          <button mat-icon-button (click)="edit(element)">
+          <button mat-icon-button matTooltip="Edit Rule" (click)="edit(element)">
             <mat-icon class="md-24" aria-label="edit">mode_edit</mat-icon>
           </button>
-          <button mat-icon-button (click)="duplicate(element)">
+          <button mat-icon-button matTooltip="Duplicate Rule" (click)="duplicate(element)">
             <mat-icon class="md-24" aria-label="duplicate">content_copy</mat-icon>
           </button>
-          <button mat-icon-button (click)="remove(element)">
+          <button mat-icon-button matTooltip="Remove Rule" (click)="remove(element)">
             <mat-icon class="md-24" aria-label="delete">delete</mat-icon>
           </button>
         </mat-cell>
