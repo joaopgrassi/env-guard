@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.org/joaopgrassi/env-guard.svg?branch=master)](https://travis-ci.org/joaopgrassi/env-guard)
 [![Coverage Status](https://coveralls.io/repos/github/joaopgrassi/env-guard/badge.svg?branch=master)](https://coveralls.io/github/joaopgrassi/env-guard?branch=master)
+[![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 
 No more mistakes while messing around 'production like' environments.
 
@@ -31,3 +32,6 @@ If you need a tool to maintain your chrome tabs in a more generic way, you shoul
 
 ## Usage:
 Refer to the [Usage Wiki Page](https://github.com/joaopgrassi/env-guard/wiki/Using-the-extension) for detailed usage documentation.
+
+## License
+Licensed under MIT
