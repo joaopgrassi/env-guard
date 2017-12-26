@@ -126,12 +126,6 @@ export class RuleDetailsComponent implements OnInit {
    * @param {IRuleBanner} banner
    */
   private addBannerFormGroup(banner?: IRuleBanner) {
-    // if was already added before just update the values with patchValue
-    if (this.ruleForm.contains('banner')) {
-      this.ruleForm.get('banner').patchValue(banner);
-      return;
-    }
-
     const bannerFormGroup = this.formBuilder.group({
       text: [banner.text],
       bgColor: [banner.bgColor],
