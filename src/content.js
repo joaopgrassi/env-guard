@@ -7,7 +7,7 @@
    * @param rule
    */
   function changeTabTitle(rule) {
-    if (rule.title === null) {
+    if (!rule.title) {
       return;
     }
     document.title = rule.title;
@@ -18,7 +18,7 @@
    * @param rule
    */
   function changeTabIcon(rule) {
-    if (rule.icon === null)
+    if (!rule.icon)
       return;
 
     var el = document.querySelectorAll('head link[rel*="icon"]');

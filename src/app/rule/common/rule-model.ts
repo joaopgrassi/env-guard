@@ -47,9 +47,9 @@ export class RuleBanner implements IRuleBanner {
   bgColor: string;
   textColor: string;
 
-  constructor(text: string, bgColor: string, textColor: string) {
+  constructor(text: string, icon: Icon, textColor: string = '#FFF') {
     this.text = text;
-    this.bgColor = bgColor;
+    this.bgColor = (icon ? icon.iconBaseColor : '#EB1342'); // default is empty is red.
     this.textColor = textColor;
   }
 }

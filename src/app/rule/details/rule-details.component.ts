@@ -64,7 +64,7 @@ export class RuleDetailsComponent implements OnInit {
    * @returns {IIcon}
    */
   getIcon(key: string): IIcon {
-    if (key && this.icons) {
+    if (key && key !== 'none' && this.icons) {
       return this.icons.find(i => i.key === key);
     }
   }
@@ -84,6 +84,10 @@ export class RuleDetailsComponent implements OnInit {
    * Saves or updates a rule
    */
   save() {
+
+    if (!this.ruleForm.valid){
+      return;
+    }
     const rule = new Rule(
       this.ruleForm.value.id,
       this.ruleForm.value.name,
@@ -118,7 +122,7 @@ export class RuleDetailsComponent implements OnInit {
    */
   private initializeBanner() {
     const icon = this.getIcon(this.ruleForm.value.icon);
-    this.addBannerFormGroup(new RuleBanner(this.ruleForm.value.name, icon.iconBaseColor, '#FFF'));
+    this.addBannerFormGroup(new RuleBanner(this.ruleForm.value.name, icon));
   }
 
   /**
@@ -141,7 +145,7 @@ export class RuleDetailsComponent implements OnInit {
       url: [currentRule.url, [Validators.required]],
       operator: [currentRule.operator, [Validators.required]],
       title: [currentRule.title],
-      icon: [(currentRule.icon) ? currentRule.icon.key : '', [Validators.required]]
+      icon: [(currentRule.icon) ? currentRule.icon.key : 'none']
     });
 
     if (this.currentRule.banner) {

@@ -1,5 +1,11 @@
 [
   {
+    "name": "None",
+    "key": "none",
+    "path": "",
+    "iconBaseColor": ""
+  },
+  {
     "name": "Production",
     "key": "prod",
     "path": "icons/red.png",

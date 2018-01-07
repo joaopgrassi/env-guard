@@ -25,7 +25,8 @@ class MockedRuleService {
   public static mockedIcons: IIcon[] = [
     new Icon('Production', 'prod', 'icons/red.png', '#EB1342'),
     new Icon('Staging', 'staging', 'icons/blue.png', '#579AF2'),
-    new Icon('Development', 'dev', 'icons/green.png', '#0ECC7D')
+    new Icon('Development', 'dev', 'icons/green.png', '#0ECC7D'),
+    new Icon('None', 'none', '', '')
   ];
 
   public static mockedRules: IRule[] = [
@@ -96,14 +97,27 @@ describe('RuleDetailsComponent', () => {
   it('should load environment icons on ngInit', fakeAsync(() => {
     spyOn(ruleService, 'getDefaultIcons').and.callThrough();
 
+    activateRoute.testParamMap = { id: 'add' };
     fixture.detectChanges();
 
     expect(ruleService.getDefaultIcons).toHaveBeenCalled();
   }));
 
+  it('should show save button disabled if form is not valid', () => {
+
+    activateRoute.testParamMap = { id: 'add' };
+    fixture.detectChanges();
+
+    const saveButton = fixture.nativeElement.querySelector('button[data-spec-save]');
+    expect(saveButton.disabled).toBeTruthy();
+  });
+
   it('should navigate to dashboard on cancel click', fakeAsync(() => {
     spyOn(router, 'navigate').and.callThrough();
     spyOn(component, 'cancel').and.callThrough();
+
+    activateRoute.testParamMap = { id: 'add' };
+    fixture.detectChanges();
 
     const cancelButton = fixture.nativeElement.querySelector('button[data-spec-cancel]');
     cancelButton.click();
@@ -125,15 +139,15 @@ describe('RuleDetailsComponent', () => {
     spyOn(actions, 'addRule').and.callThrough();
     spyOn(router, 'navigate').and.callThrough();
 
-    fixture.autoDetectChanges();
-
     activateRoute.testParamMap = { id: 'add' };
+    fixture.detectChanges();
 
     // Set new rule to the form
-    const expectedRule = new Rule(null, 'Test', 'http://test.com', 'Exact', 'Development',
+    const expectedRule = new Rule(null, 'Test', 'http://test.com', 'Contains', 'Development',
       MockedRuleService.mockedIcons[2]);
     component.ruleForm.patchValue(expectedRule);
     component.ruleForm.get('icon').setValue(expectedRule.icon.key);
+    fixture.detectChanges();
 
     // Act
     const saveButton = fixture.nativeElement.querySelector('button[data-spec-save]');
@@ -141,6 +155,24 @@ describe('RuleDetailsComponent', () => {
 
     expect((actions.addRule as any).calls.mostRecent().args[0]).toEqual(expectedRule);
     expect(router.navigate).toHaveBeenCalledWith(['rules/dashboard']);
+  });
+
+  it('should not save if form is not valid', () => {
+    spyOn(actions, 'addRule').and.callThrough();
+    spyOn(router, 'navigate').and.callThrough();
+
+    activateRoute.testParamMap = { id: 'add' };
+    fixture.detectChanges();
+
+    // Set only required fields
+    component.ruleForm.get('name').setValue('Test');
+    component.ruleForm.get('operator').setValue('Exact');
+    fixture.detectChanges();
+
+    // Act
+    component.save();
+
+    expect(actions.addRule).not.toHaveBeenCalled();
   });
 
   it('should load rule from store if id is passed on url', () => {
@@ -230,6 +262,73 @@ describe('RuleDetailsComponent', () => {
     saveButton.click();
 
     expect((actions.saveRule as any).calls.mostRecent().args[0]).toEqual(expectedRule);
+    expect(router.navigate).toHaveBeenCalledWith(['rules/dashboard']);
+  });
+
+  it('should be able to save rule without title and icon', () => {
+    spyOn(actions, 'addRule').and.callThrough();
+    spyOn(router, 'navigate').and.callThrough();
+
+    activateRoute.testParamMap = { id: 'add' };
+    fixture.detectChanges();
+
+    const expectedRule = new Rule(null, 'Test', 'http://test.com', 'Exact', '', void(0));
+
+    // Set only required fields
+    component.ruleForm.get('name').setValue(expectedRule.name);
+    component.ruleForm.get('operator').setValue(expectedRule.operator);
+    component.ruleForm.get('url').setValue(expectedRule.url);
+    fixture.detectChanges();
+
+    // Act
+    const saveButton = fixture.nativeElement.querySelector('button[data-spec-save]');
+    saveButton.click();
+
+    const actual = (actions.addRule as any).calls.mostRecent().args[0];
+
+    expect(actual.name).toEqual(expectedRule.name);
+    expect(actual.operator).toEqual(expectedRule.operator);
+    expect(actual.url).toEqual(expectedRule.url);
+    expect(actual.title).toBe(null);
+    expect(actual.icon).not.toBeDefined();
+    expect(actual.banner).not.toBeDefined();
+    expect(router.navigate).toHaveBeenCalledWith(['rules/dashboard']);
+  });
+
+  it('should add banner properties on new rule without icon set', () => {
+    spyOn(actions, 'addRule').and.callThrough();
+    spyOn(router, 'navigate').and.callThrough();
+
+    activateRoute.testParamMap = { id: 'add' };
+    fixture.detectChanges();
+
+    const expectedBanner = <IRuleBanner>
+      {
+        text: 'Test',
+        // default banner color is red
+        bgColor: MockedRuleService.mockedIcons[0].iconBaseColor,
+        // default banner text color is white
+        textColor: '#FFF'
+      };
+
+    const expectedRule = new Rule(null, 'Test', 'http://test.com', 'Exact', '', void(0));
+
+    // Set new rule to the form
+    component.ruleForm.patchValue(expectedRule);
+    fixture.detectChanges();
+
+    // check the 'add banner'
+    const addBannerCheckbox = fixture.nativeElement.querySelector('mat-checkbox label');
+    addBannerCheckbox.click();
+    fixture.detectChanges();
+
+    expectedRule.addRuleBanner(expectedBanner);
+
+    // Act
+    const saveButton = fixture.nativeElement.querySelector('button[data-spec-save]');
+    saveButton.click();
+
+    expect((actions.addRule as any).calls.mostRecent().args[0]).toEqual(expectedRule);
     expect(router.navigate).toHaveBeenCalledWith(['rules/dashboard']);
   });
 

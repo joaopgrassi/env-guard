@@ -47,7 +47,7 @@ describe('RuleService', () => {
 
   it('should get default icons', () => {
     ruleService.getDefaultIcons().subscribe((icons: IIcon[]) => {
-      expect(icons.length).toBe(3);
+      expect(icons.length).toBe(4);
     });
   });
 

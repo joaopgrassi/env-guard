@@ -24,7 +24,8 @@ public static mockedIcons: IIcon[] = [
 
   public static mockedRules: IRule[] = [
     new Rule(null, 'Production', 'http://production.com', 'Exact', 'Production', MockedRuleService.mockedIcons[0]),
-    new Rule(null, 'Staging', 'http://staging.com', 'Exact', 'Staging', MockedRuleService.mockedIcons[1])
+    new Rule(null, 'Staging', 'http://staging.com', 'Exact', 'Staging', MockedRuleService.mockedIcons[1]),
+    new Rule('ABC', 'Development', 'http://dev.com', 'Exact', '', void(0))
   ];
 
   getAllRules$: Observable<IRule[]> = Observable.of(MockedRuleService.mockedRules);
@@ -82,6 +83,20 @@ describe('RuleDashboardComponent', () => {
 
   it('should be created', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should show three rules on dashboard', () => {
+   fixture.detectChanges();
+
+    const matRows = fixture.nativeElement.querySelectorAll('mat-row');
+    expect(matRows.length).toBe(3);
+  });
+
+  it('should show rule without icon on dashboard', () => {
+    fixture.detectChanges();
+
+    const iconCells = fixture.nativeElement.querySelectorAll('.mat-cell.cdk-column-icon');
+    expect(iconCells[2].innerText).toBe('');
   });
 
   it('add new rule - navigate to details page with add on route', () => {
