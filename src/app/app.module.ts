@@ -9,7 +9,7 @@ import { AppMaterialModule } from './app-material.module';
 import { rootRouterConfig } from './app-routes';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './_layout/';
-import { NotificationService } from './common';
+import { NotificationService, BrowserStorageProvider } from './common';
 import { AppStore } from './store/';
 
 import { RuleDashboardComponent, RuleDetailsComponent, RuleService, ChromeStorageService, RuleActions } from './rule';
@@ -33,10 +33,12 @@ import { RuleDashboardComponent, RuleDetailsComponent, RuleService, ChromeStorag
     AppStore,
   ],
   providers: [
+    { provide: 'Chrome',  useValue: chrome },
     RuleService,
     NotificationService,
     ChromeStorageService,
-    RuleActions
+    RuleActions,
+    BrowserStorageProvider
   ],
   bootstrap: [AppComponent]
 })

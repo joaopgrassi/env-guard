@@ -3,13 +3,16 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/observable/from';
 
 import { IRule, StorageRules } from './rule-model';
+import { IStorage, StorageType, BrowserStorageProvider } from '../../common';
 
 @Injectable()
 export class ChromeStorageService {
 
   private storage_key = 'envGuard';
+  private browserStorage: IStorage;
 
-  constructor() {
+  constructor(private browserStorageProvider: BrowserStorageProvider) {
+    this.browserStorage = browserStorageProvider.getStorage();
   }
 
   /**
@@ -19,18 +22,12 @@ export class ChromeStorageService {
   setAll(rules: IRule[]): Observable<any> {
     const storage = new StorageRules(rules);
     return Observable.from(new Promise((resolve, reject) => {
-      if (chrome !== undefined && chrome.storage !== undefined) {
-        chrome.storage.sync.set(storage, () => {
-
-          if (!chrome.runtime.lastError) {
-            resolve(true);
-          } else {
-            reject();
-            // TODO: Handle error here
-          }
+      if (this.browserStorage.type === StorageType.Chrome) {
+        this.browserStorage.storage.sync.set(storage, () => {
+          resolve(true);
         });
       } else {
-        localStorage.setItem(this.storage_key, JSON.stringify(storage.envGuard));
+        this.browserStorage.storage.setItem(this.storage_key, JSON.stringify(storage.envGuard));
         resolve(true);
       }
     }));
@@ -41,18 +38,13 @@ export class ChromeStorageService {
    */
   getAllFromLocalStorage(): Observable<IRule[]> {
     return Observable.from(new Promise((resolve, reject) => {
-      if (chrome !== undefined && chrome.storage !== undefined) {
-        chrome.storage.sync.get(this.storage_key, (items: any) => {
-          if (!chrome.runtime.lastError) {
-            resolve(items[this.storage_key]);
-          } else {
-            reject();
-            // TODO: Handle error here
-          }
+      if (this.browserStorage.type === StorageType.Chrome) {
+        this.browserStorage.storage.sync.get(this.storage_key, (items: any) => {
+          resolve(items[this.storage_key]);
         });
       } else {
-        resolve((localStorage.getItem(this.storage_key) === null) ? []
-          : JSON.parse(localStorage.getItem(this.storage_key)));
+        resolve((this.browserStorage.storage.getItem(this.storage_key) === null) ? []
+          : JSON.parse(this.browserStorage.storage.getItem(this.storage_key)));
       }
     }));
   }
