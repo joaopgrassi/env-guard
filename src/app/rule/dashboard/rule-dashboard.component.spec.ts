@@ -6,13 +6,13 @@ import { By } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 
 import { AppStore } from '../../store/app.store';
-import { MockedChromeStorageService, MockedNotificationService, MockedRouter } from '../../../_mocks/mocks';
+import { MockedRuleBrowserStorageService, MockedNotificationService, MockedRouter } from '../../../_mocks/mocks';
 
 import { RuleDashboardComponent } from './rule-dashboard.component';
 import { NotificationService } from '../../common/notification.service';
 
 import { Icon, IIcon, IRule, Rule } from '../common/rule-model';
-import { ChromeStorageService, RuleActions, RuleService } from '../common/';
+import { RuleBrowserStorageService, RuleActions, RuleService } from '../common/';
 import { IAppStore } from '../../store/common/store.model';
 
 class MockedRuleService {
@@ -57,7 +57,7 @@ describe('RuleDashboardComponent', () => {
         { provide: Router, useClass: MockedRouter },
         { provide: RuleActions, useValue: new RuleActions() },
         { provide: NotificationService, useClass: MockedNotificationService },
-        { provide: ChromeStorageService, useClass: MockedChromeStorageService },
+        { provide: RuleBrowserStorageService, useClass: MockedRuleBrowserStorageService },
         { provide: RuleService, useClass: MockedRuleService }
       ],
       declarations: [RuleDashboardComponent]

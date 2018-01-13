@@ -9,12 +9,12 @@ import { AppMaterialModule } from '../../app-material.module';
 import { NotificationService } from '../../common/notification.service';
 import {
   MockedActivatedRoute,
-  MockedChromeStorageService,
+  MockedRuleBrowserStorageService,
   MockedNotificationService,
   MockedRouter
 } from '../../../_mocks/mocks';
 
-import { ChromeStorageService, IRuleBanner, RuleActions, RuleBanner, RuleService } from '../common/';
+import { RuleBrowserStorageService, IRuleBanner, RuleActions, RuleBanner, RuleService } from '../common/';
 import { RuleDetailsComponent } from './rule-details.component';
 import { Icon, IIcon, IRule, Rule } from '../common/rule-model';
 import { Store } from '@ngrx/store';
@@ -69,7 +69,7 @@ describe('RuleDetailsComponent', () => {
         { provide: ActivatedRoute, useValue: activateRoute },
         { provide: RuleActions, useValue: new RuleActions() },
         { provide: NotificationService, useClass: MockedNotificationService },
-        { provide: ChromeStorageService, useClass: MockedChromeStorageService },
+        { provide: RuleBrowserStorageService, useClass: MockedRuleBrowserStorageService },
         { provide: RuleService, useClass: MockedRuleService }
       ],
       declarations: [RuleDetailsComponent]

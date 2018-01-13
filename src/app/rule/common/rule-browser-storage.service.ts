@@ -6,7 +6,7 @@ import { IRule, StorageRules } from './rule-model';
 import { IStorage, StorageType, BrowserStorageProvider } from '../../common';
 
 @Injectable()
-export class ChromeStorageService {
+export class RuleBrowserStorageService {
 
   private storage_key = 'envGuard';
   private browserStorage: IStorage;
@@ -21,7 +21,7 @@ export class ChromeStorageService {
    */
   setAll(rules: IRule[]): Observable<any> {
     const storage = new StorageRules(rules);
-    return Observable.from(new Promise((resolve, reject) => {
+    return Observable.from(new Promise((resolve, _) => {
       if (this.browserStorage.type === StorageType.Chrome) {
         this.browserStorage.storage.sync.set(storage, () => {
           resolve(true);
@@ -36,8 +36,8 @@ export class ChromeStorageService {
   /**
    * gets all rules from either local or chrome storage.
    */
-  getAllFromLocalStorage(): Observable<IRule[]> {
-    return Observable.from(new Promise((resolve, reject) => {
+  getAll(): Observable<IRule[]> {
+    return Observable.from(new Promise((resolve, _) => {
       if (this.browserStorage.type === StorageType.Chrome) {
         this.browserStorage.storage.sync.get(this.storage_key, (items: any) => {
           resolve(items[this.storage_key]);

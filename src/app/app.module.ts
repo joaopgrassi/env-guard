@@ -12,7 +12,7 @@ import { HeaderComponent } from './_layout/';
 import { NotificationService, BrowserStorageProvider } from './common';
 import { AppStore } from './store/';
 
-import { RuleDashboardComponent, RuleDetailsComponent, RuleService, ChromeStorageService, RuleActions } from './rule';
+import { RuleDashboardComponent, RuleDetailsComponent, RuleService, RuleBrowserStorageService, RuleActions } from './rule';
 
 @NgModule({
   declarations: [
@@ -36,7 +36,7 @@ import { RuleDashboardComponent, RuleDetailsComponent, RuleService, ChromeStorag
     { provide: 'Chrome',  useValue: chrome },
     RuleService,
     NotificationService,
-    ChromeStorageService,
+    RuleBrowserStorageService,
     RuleActions,
     BrowserStorageProvider
   ],

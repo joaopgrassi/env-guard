@@ -8,12 +8,12 @@ import { AppMaterialModule } from './app-material.module';
 import { AppStore } from './store/app.store';
 import { NotificationService } from './common/notification.service';
 
-import { MockedChromeStorageService, MockedNotificationService, MockedRouter } from '../_mocks/mocks';
+import { MockedRuleBrowserStorageService, MockedNotificationService, MockedRouter } from '../_mocks/mocks';
 
 import { HeaderComponent } from './_layout/header.component';
 import { AppComponent } from './app.component';
 import { RuleActions } from './rule/common/rule.actions';
-import { ChromeStorageService, RuleService } from './rule/common/';
+import { RuleBrowserStorageService, RuleService } from './rule/common/';
 import { Icon, IIcon, IRule, Rule } from './rule/common/rule-model';
 
 class MockedRuleService {
@@ -43,7 +43,7 @@ describe('AppComponent', () => {
         { provide: Router, useClass: MockedRouter },
         { provide: RuleActions, useValue: new RuleActions() },
         { provide: NotificationService, useClass: MockedNotificationService },
-        { provide: ChromeStorageService, useClass: MockedChromeStorageService },
+        { provide: RuleBrowserStorageService, useClass: MockedRuleBrowserStorageService },
         { provide: RuleService, useClass: MockedRuleService }
       ],
       declarations: [
