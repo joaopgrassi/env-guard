@@ -55,6 +55,10 @@ export class RuleDashboardComponent implements OnInit {
     copy.id = uuid();
     copy.name = `${rule.name} - Copy`;
     this.store.dispatch(this.ruleActions.addRule(copy));
+
+    // TODO: This should be refactored and listen to ActionSubject
+    this.store.dispatch(this.ruleActions.syncLocalStorage());
+
     this.notificationService.notifySuccess('Rule duplicated!');
   }
 

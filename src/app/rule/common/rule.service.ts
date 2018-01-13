@@ -3,14 +3,14 @@ import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
 import { Observable } from 'rxjs/Observable';
 
-import { ChromeStorageService } from './chrome-storage.service';
+import { RuleBrowserStorageService } from './rule-browser-storage.service';
 import { IIcon, IRule } from './rule-model';
 
 @Injectable()
 export class RuleService {
 
   constructor(private http: HttpClient,
-              private chromeStorage: ChromeStorageService) {  }
+              private chromeStorage: RuleBrowserStorageService) {  }
 
   /**
    * Returns the list of default icons
@@ -38,6 +38,6 @@ export class RuleService {
    * @returns {Observable<IRule[]>}
    */
   getAllRules(): Observable<IRule[]> {
-    return this.chromeStorage.getAllFromLocalStorage();
+    return this.chromeStorage.getAll();
   }
 }

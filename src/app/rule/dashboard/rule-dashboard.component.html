@@ -25,8 +25,8 @@
       <ng-container matColumnDef="icon">
         <mat-header-cell *matHeaderCellDef> Icon</mat-header-cell>
         <mat-cell *matCellDef="let element">
-          <img class="md-img-select mat-icon-16x" src="assets/{{element.icon.path}}">
-          {{element.icon.name}}
+          <img class="md-img-select mat-icon-16x" *ngIf="element.icon" src="assets/{{element.icon.path}}">
+          {{element.icon?.name}}
         </mat-cell>
       </ng-container>
 
