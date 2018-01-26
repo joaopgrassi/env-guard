@@ -1,6 +1,7 @@
 (function () {
 
   var rule = null;
+  var envGuardBanner = 'envGuardBanner';
 
   /**
    * Applies the new title to Tab
@@ -44,19 +45,22 @@
     if (!rule.banner) {
       return;
     }
+    if (document.getElementById(envGuardBanner)) {
+      return;
+    }
 
-    var envGuardSpan = document.createElement('envGuardSpan');
-    envGuardSpan.id = 'envGuardSpan';
+    var envGuardSpan = document.createElement('span');
     envGuardSpan.style.fontSize = '23px';
     envGuardSpan.style.fontWeight = 'bold';
     envGuardSpan.textContent = (rule.banner) ? rule.banner.text : 'PRODUCTION';
     envGuardSpan.style.color = (rule.banner) ? rule.banner.textColor : '#FFF';
     var elemDiv = document.createElement('div');
+    elemDiv.id = envGuardBanner;
     elemDiv.style.width = '100%';
     elemDiv.style.height = '40px';
     elemDiv.style.backgroundColor = (rule.banner) ? rule.banner.bgColor : '#EB1342';
     elemDiv.style.textAlign = 'center';
-    elemDiv.style.position = 'fixed';
+    elemDiv.style.position = 'sticky';
     elemDiv.style.top = '0';
     elemDiv.style.left = '0';
     elemDiv.style.zIndex = '9999999999';
