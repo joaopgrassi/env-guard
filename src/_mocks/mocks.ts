@@ -3,6 +3,7 @@ import { Observable } from 'rxjs/Observable';
 import { IRule } from '../app/rule/common/rule-model';
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 import { convertToParamMap, ParamMap } from '@angular/router';
+import { RuleBrowserStorageService } from '../app/rule/common';
 
 export class MockedNotificationService {
   notifySuccess(message: string) {
@@ -15,7 +16,7 @@ export class MockedNotificationService {
   }
 }
 
-export class MockedChromeStorageService {
+export class MockedRuleBrowserStorageService {
   setAll(rules: IRule[]): Observable<any> {
     return Observable.of({});
   }

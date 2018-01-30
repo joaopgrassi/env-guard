@@ -14,9 +14,9 @@ openExtension = function () {
 };
 
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
-  // sends a message to content.js only when Title or Favicon have changed.
-  if (changeInfo.title || changeInfo.favIconUrl) {
-    chrome.tabs.sendMessage(tabId, changeInfo);
+  // sends a message to content.js only when the tab finished loading
+  if (changeInfo.status === 'complete') {
+    chrome.tabs.sendMessage(tabId, tab);
   }
 });
 
