@@ -55,13 +55,13 @@
                               formControlName="icon"
                               #select="matSelect">
                     <mat-select-trigger>
-                      <img *ngIf="select.selected?.value != 'none'" class="md-img-select mat-icon-16x" src="assets/{{getIcon(select.selected?.value)?.path}}"
+                      <img *ngIf="select.selected && select.selected.value != 'none'" class="md-img-select mat-icon-16x" src="assets/{{getIcon(select.selected?.value)?.path}}"
                                                            alt="{{ select.selected?.viewValue }}">
                       {{ select.selected?.viewValue }}
                     </mat-select-trigger>
                     <mat-option layout="row" layout-align="start center" *ngFor="let icon of icons" [value]="icon.key">
-                      <img class="md-img-select mat-icon-16x" *ngIf="icon.path" src="assets/{{icon.path}}" alt="{{ icon.name }}"> {{
-                      icon.name }}
+                      <img class="md-img-select mat-icon-16x" *ngIf="icon.path" src="assets/{{icon.path}}" alt="{{ icon.name }}">
+                      {{ icon.name }}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
