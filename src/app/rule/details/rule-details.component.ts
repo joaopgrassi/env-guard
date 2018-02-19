@@ -9,9 +9,11 @@ import { NotificationService } from '../../common';
 import { IAppStore } from '../../store';
 
 import {
-  getRuleByIdSelector, IIcon, IRule, IRuleBanner, OperatorRules, Rule, RuleActions, RuleBanner,
+  getRuleByIdSelector, IIcon, IRule, IRuleBanner, OperatorRules, Rule, RuleBanner,
   RuleService
 } from '../common/';
+
+import * as RuleActions from '../common/';
 
 @Component({
   selector: 'app-rule-details',
@@ -32,7 +34,6 @@ export class RuleDetailsComponent implements OnInit {
               private router: Router,
               private formBuilder: FormBuilder,
               private ruleService: RuleService,
-              private ruleActions: RuleActions,
               private notificationService: NotificationService,
               private store: Store<IAppStore>) {
   }
@@ -101,13 +102,13 @@ export class RuleDetailsComponent implements OnInit {
     }
 
     if (this.newRule) {
-      this.store.dispatch(this.ruleActions.addRule(rule));
+      this.store.dispatch(new RuleActions.AddRule(rule));
     } else {
-      this.store.dispatch(this.ruleActions.saveRule(rule));
+      this.store.dispatch(new RuleActions.SaveRule(rule));
     }
 
     // TODO: This should be refactored and listen to ActionSubject
-    this.store.dispatch(this.ruleActions.syncLocalStorage());
+    this.store.dispatch(new RuleActions.SyncLocalStorage());
 
     this.goToDashboard();
     this.notificationService.notifySuccess('Rule Saved!');

@@ -14,7 +14,8 @@ import {
   MockedRouter
 } from '../../../_mocks/mocks';
 
-import { RuleBrowserStorageService, IRuleBanner, RuleActions, RuleBanner, RuleService } from '../common/';
+import { RuleBrowserStorageService, IRuleBanner, RuleBanner, RuleService } from '../common/';
+import * as RuleActions from '../common/';
 import { RuleDetailsComponent } from './rule-details.component';
 import { Icon, IIcon, IRule, Rule } from '../common/rule-model';
 import { Store } from '@ngrx/store';
@@ -58,7 +59,6 @@ describe('RuleDetailsComponent', () => {
   let router: Router;
   let activateRoute = new MockedActivatedRoute();
   let store: Store<IAppStore>;
-  let actions: RuleActions;
   let ruleService: RuleService;
 
   beforeEach(async(() => {
@@ -67,7 +67,6 @@ describe('RuleDetailsComponent', () => {
       providers: [
         { provide: Router, useClass: MockedRouter },
         { provide: ActivatedRoute, useValue: activateRoute },
-        { provide: RuleActions, useValue: new RuleActions() },
         { provide: NotificationService, useClass: MockedNotificationService },
         { provide: RuleBrowserStorageService, useClass: MockedRuleBrowserStorageService },
         { provide: RuleService, useClass: MockedRuleService }
@@ -83,11 +82,10 @@ describe('RuleDetailsComponent', () => {
     activateRoute = TestBed.get(ActivatedRoute);
     router = TestBed.get(Router);
     store = TestBed.get(Store);
-    actions = TestBed.get(RuleActions);
     ruleService = TestBed.get(RuleService);
 
     // load data into the store before test starts
-    store.dispatch(actions.loadRuleSuccess(MockedRuleService.mockedRules));
+    store.dispatch(new RuleActions.LoadRuleSuccess(MockedRuleService.mockedRules));
   });
 
   it('should be created', () => {
@@ -136,7 +134,7 @@ describe('RuleDetailsComponent', () => {
   });
 
   it('should dispatch addRule action to store on new rule save', () => {
-    spyOn(actions, 'addRule').and.callThrough();
+    spyOn(RuleActions, 'AddRule').and.callThrough();
     spyOn(router, 'navigate').and.callThrough();
 
     activateRoute.testParamMap = { id: 'add' };
@@ -153,12 +151,12 @@ describe('RuleDetailsComponent', () => {
     const saveButton = fixture.nativeElement.querySelector('button[data-spec-save]');
     saveButton.click();
 
-    expect((actions.addRule as any).calls.mostRecent().args[0]).toEqual(expectedRule);
+    expect((RuleActions.AddRule as any).calls.mostRecent().args[0]).toEqual(expectedRule);
     expect(router.navigate).toHaveBeenCalledWith(['rules/dashboard']);
   });
 
   it('should not save if form is not valid', () => {
-    spyOn(actions, 'addRule').and.callThrough();
+    spyOn(RuleActions, 'AddRule').and.callThrough();
     spyOn(router, 'navigate').and.callThrough();
 
     activateRoute.testParamMap = { id: 'add' };
@@ -172,7 +170,7 @@ describe('RuleDetailsComponent', () => {
     // Act
     component.save();
 
-    expect(actions.addRule).not.toHaveBeenCalled();
+    expect(RuleActions.AddRule).not.toHaveBeenCalled();
   });
 
   it('should load rule from store if id is passed on url', () => {
@@ -186,7 +184,7 @@ describe('RuleDetailsComponent', () => {
   });
 
   it('should dispatch saveRule action to store on editing existing rule', () => {
-    spyOn(actions, 'saveRule').and.callThrough();
+    spyOn(RuleActions, 'SaveRule').and.callThrough();
     spyOn(router, 'navigate').and.callThrough();
 
     fixture.autoDetectChanges();
@@ -203,12 +201,12 @@ describe('RuleDetailsComponent', () => {
     const saveButton = fixture.nativeElement.querySelector('button[data-spec-save]');
     saveButton.click();
 
-    expect((actions.saveRule as any).calls.mostRecent().args[0]).toEqual(expectedRule);
+    expect((RuleActions.SaveRule as any).calls.mostRecent().args[0]).toEqual(expectedRule);
     expect(router.navigate).toHaveBeenCalledWith(['rules/dashboard']);
   });
 
   it('should add banner properties on new rule', () => {
-    spyOn(actions, 'addRule').and.callThrough();
+    spyOn(RuleActions, 'AddRule').and.callThrough();
     spyOn(router, 'navigate').and.callThrough();
 
     fixture.autoDetectChanges();
@@ -240,12 +238,12 @@ describe('RuleDetailsComponent', () => {
     const saveButton = fixture.nativeElement.querySelector('button[data-spec-save]');
     saveButton.click();
 
-    expect((actions.addRule as any).calls.mostRecent().args[0]).toEqual(expectedRule);
+    expect((RuleActions.AddRule as any).calls.mostRecent().args[0]).toEqual(expectedRule);
     expect(router.navigate).toHaveBeenCalledWith(['rules/dashboard']);
   });
 
   it('should load banner properties on existing rule', () => {
-    spyOn(actions, 'saveRule').and.callThrough();
+    spyOn(RuleActions, 'SaveRule').and.callThrough();
     spyOn(router, 'navigate').and.callThrough();
 
     const expectedRule = MockedRuleService.mockedRules[2];
@@ -261,12 +259,12 @@ describe('RuleDetailsComponent', () => {
     const saveButton = fixture.nativeElement.querySelector('button[data-spec-save]');
     saveButton.click();
 
-    expect((actions.saveRule as any).calls.mostRecent().args[0]).toEqual(expectedRule);
+    expect((RuleActions.SaveRule as any).calls.mostRecent().args[0]).toEqual(expectedRule);
     expect(router.navigate).toHaveBeenCalledWith(['rules/dashboard']);
   });
 
   it('should be able to save rule without title and icon', () => {
-    spyOn(actions, 'addRule').and.callThrough();
+    spyOn(RuleActions, 'AddRule').and.callThrough();
     spyOn(router, 'navigate').and.callThrough();
 
     activateRoute.testParamMap = { id: 'add' };
@@ -284,7 +282,7 @@ describe('RuleDetailsComponent', () => {
     const saveButton = fixture.nativeElement.querySelector('button[data-spec-save]');
     saveButton.click();
 
-    const actual = (actions.addRule as any).calls.mostRecent().args[0];
+    const actual = (RuleActions.AddRule as any).calls.mostRecent().args[0];
 
     expect(actual.name).toEqual(expectedRule.name);
     expect(actual.operator).toEqual(expectedRule.operator);
@@ -296,7 +294,7 @@ describe('RuleDetailsComponent', () => {
   });
 
   it('should add banner properties on new rule without icon set', () => {
-    spyOn(actions, 'addRule').and.callThrough();
+    spyOn(RuleActions, 'AddRule').and.callThrough();
     spyOn(router, 'navigate').and.callThrough();
 
     activateRoute.testParamMap = { id: 'add' };
@@ -328,7 +326,7 @@ describe('RuleDetailsComponent', () => {
     const saveButton = fixture.nativeElement.querySelector('button[data-spec-save]');
     saveButton.click();
 
-    expect((actions.addRule as any).calls.mostRecent().args[0]).toEqual(expectedRule);
+    expect((RuleActions.AddRule as any).calls.mostRecent().args[0]).toEqual(expectedRule);
     expect(router.navigate).toHaveBeenCalledWith(['rules/dashboard']);
   });
 
