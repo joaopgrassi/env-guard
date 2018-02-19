@@ -1,47 +1,47 @@
-(function () {
+(() => {
 
-  var rule = null;
-  var envGuardBanner = 'envGuardBanner';
+  const rule = null;
+  const envGuardBanner = 'envGuardBanner';
 
   /**
    * Applies the new title to Tab
    * @param rule
    */
-  function changeTabTitle(rule) {
+  const changeTabTitle = (rule) => {
     if (!rule.title) {
       return;
     }
     document.title = rule.title;
-  }
+  };
 
   /**
    * Applies the new favicon to Tab
    * @param rule
    */
-  function changeTabIcon(rule) {
+  const changeTabIcon = (rule) => {
     if (!rule.icon)
       return;
 
-    var el = document.querySelectorAll('head link[rel*="icon"]');
-    var icon = chrome.extension.getURL('/assets/' + rule.icon.path);
+    const el = document.querySelectorAll('head link[rel*="icon"]');
+    const icon = chrome.extension.getURL('/assets/' + rule.icon.path);
 
-    Array.prototype.forEach.call(el, function (node) {
+    Array.prototype.forEach.call(el, (node) => {
       node.parentNode.removeChild(node);
     });
 
-    var link = document.createElement('link');
+    const link = document.createElement('link');
     link.type = 'image/x-icon';
     link.rel = 'shortcut icon';
     link.href = icon;
 
     document.getElementsByTagName('head')[0].appendChild(link);
-  }
+  };
 
   /**
    * Adds the Banner to Tab
    * @param rule
    */
-  function addSiteBanner(rule) {
+  const addSiteBanner = (rule) => {
     if (!rule.banner) {
       return;
     }
@@ -49,12 +49,13 @@
       return;
     }
 
-    var envGuardSpan = document.createElement('span');
+    const envGuardSpan = document.createElement('span');
     envGuardSpan.style.fontSize = '23px';
     envGuardSpan.style.fontWeight = 'bold';
     envGuardSpan.textContent = (rule.banner) ? rule.banner.text : 'PRODUCTION';
     envGuardSpan.style.color = (rule.banner) ? rule.banner.textColor : '#FFF';
-    var elemDiv = document.createElement('div');
+
+    const elemDiv = document.createElement('div');
     elemDiv.id = envGuardBanner;
     elemDiv.style.width = '100%';
     elemDiv.style.height = '40px';
@@ -67,33 +68,33 @@
     elemDiv.appendChild(envGuardSpan);
 
     window.document.body.insertBefore(elemDiv, window.document.body.firstChild);
-  }
+  };
 
   /**
    * Resets the favicon for sites that doesn't have a favicon itself.
    * After removing or changing a Rule for a site, the env-guard icon remained on chrome due to caching.
    * @param tab
    */
-  function resetFavIcon(tab) {
+  const resetFavIcon = (tab) => {
     // if the favIconUrl of the tab contains chrome-extension we need to remove it.
     // This is a left over from the deleted/modified rule
     if (tab.favIconUrl.indexOf('chrome-extension') > -1) {
-      var link = document.createElement('link');
+      const link = document.createElement('link');
       link.rel = 'shortcut icon';
       link.href = 'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAIVBMVEX////+/v7+/v7+/v7+/v7+/v59fX1+fn5/f399fX3w8PHiH3LTAAAACXRSTlMAAgMEBQbExcYkn27pAAAAMElEQVR4AWPAAjghgIORiRUqABXmYGFBEeDiZGNGFeDiZEcRAAGYAAwMsAACYPM7ACxPAgieMjNvAAAAAElFTkSuQmCC';
       document.getElementsByTagName('head')[0].appendChild(link);
     }
-  }
+  };
 
-  chrome.storage.sync.get('envGuard', function (storageItems) {
+  chrome.storage.sync.get('envGuard', (storageItems) => {
     if (storageItems.envGuard === undefined) {
       return;
     }
 
-    var allRules = storageItems.envGuard;
+    const allRules = storageItems.envGuard;
 
-    function applyRules() {
-      for (var i = 0; i < allRules.length; i++) {
+    const applyRules = () => {
+      for (let i = 0; i < allRules.length; i++) {
         switch (allRules[i].operator) {
           case 'StartsWith':
             if (location.href.startsWith(allRules[i].url) === true) {
@@ -106,7 +107,7 @@
             }
             break;
           case 'Regex':
-            var regexp = new RegExp(allRules[i].url);
+            const regexp = new RegExp(allRules[i].url);
             if (regexp.test(location.href) === true) {
               rule = allRules[i];
             }
@@ -140,15 +141,13 @@
    * Receives a message from the eventPage.onUpdated.
    * This callback is fired after the tab is loaded.
    */
-  chrome.runtime.onMessage.addListener(
-    function (tab, _, _) {
-      if (rule) {
-        changeTabTitle(rule);
-        changeTabIcon(rule);
-        addSiteBanner(rule);
-      } else {
-        resetFavIcon(tab);
-      }
+  chrome.runtime.onMessage.addListener((tab) => {
+    if (rule) {
+      changeTabTitle(rule);
+      changeTabIcon(rule);
+      addSiteBanner(rule);
+    } else {
+      resetFavIcon(tab);
     }
-  );
+  });
 })();

@@ -12,7 +12,7 @@ import { HeaderComponent } from './_layout/';
 import { NotificationService, BrowserStorageProvider } from './common';
 import { AppStore } from './store/';
 
-import { RuleDashboardComponent, RuleDetailsComponent, RuleService, RuleBrowserStorageService, RuleActions } from './rule';
+import { RuleDashboardComponent, RuleDetailsComponent, RuleService, RuleBrowserStorageService } from './rule';
 
 @NgModule({
   declarations: [
@@ -37,7 +37,6 @@ import { RuleDashboardComponent, RuleDetailsComponent, RuleService, RuleBrowserS
     RuleService,
     NotificationService,
     RuleBrowserStorageService,
-    RuleActions,
     BrowserStorageProvider
   ],
   bootstrap: [AppComponent]
