@@ -13,57 +13,57 @@ import {
   SYNC_LOCAL_STORAGE,
   SyncLocalStorageSuccess,
   SYNC_LOCAL_STORAGE_SUCCESS
-} from "./rule.actions";
-import { IRule } from "./index";
+} from './rule.actions';
+import { IRule } from './index';
 
 let rule: IRule;
 
 beforeEach(() => {
   rule = {
-    id: "1",
-    name: "name",
-    url: "url",
-    operator: "operator",
+    id: '1',
+    name: 'name',
+    url: 'url',
+    operator: 'operator',
     banner: null,
     icon: null,
-    title: "title"
+    title: 'title'
   };
 });
 
-describe("AddRule", () => {
-  it("should create an action", () => {
+describe('AddRule', () => {
+  it('should create an action', () => {
     const action = new AddRule(rule);
 
     expect({ ...action }).toEqual({ type: ADD_RULE, payload: rule });
   });
 });
 
-describe("SaveRule", () => {
-  it("should create an action", () => {
+describe('SaveRule', () => {
+  it('should create an action', () => {
     const action = new SaveRule(rule);
 
     expect({ ...action }).toEqual({ type: SAVE_RULE, payload: rule });
   });
 });
 
-describe("DeleteRule", () => {
-  it("should create an action", () => {
+describe('DeleteRule', () => {
+  it('should create an action', () => {
     const action = new DeleteRule(rule);
 
     expect({ ...action }).toEqual({ type: DELETE_RULE, payload: rule });
   });
 });
 
-describe("LoadRules", () => {
-  it("should create an action", () => {
+describe('LoadRules', () => {
+  it('should create an action', () => {
     const action = new LoadRules();
 
     expect({ ...action }).toEqual({ type: LOAD_RULES });
   });
 });
 
-describe("LoadRulesSuccess", () => {
-  it("should create an action", () => {
+describe('LoadRulesSuccess', () => {
+  it('should create an action', () => {
     const action = new LoadRuleSuccess([rule]);
 
     expect({ ...action }).toEqual({
@@ -73,8 +73,8 @@ describe("LoadRulesSuccess", () => {
   });
 });
 
-describe("SyncLocalStorage", () => {
-  it("should create an action", () => {
+describe('SyncLocalStorage', () => {
+  it('should create an action', () => {
     const action = new SyncLocalStorage();
 
     expect({ ...action }).toEqual({
@@ -83,8 +83,8 @@ describe("SyncLocalStorage", () => {
   });
 });
 
-describe("SyncLocalStorageSuccess", () => {
-  it("should create an action", () => {
+describe('SyncLocalStorageSuccess', () => {
+  it('should create an action', () => {
     const action = new SyncLocalStorageSuccess();
 
     expect({ ...action }).toEqual({

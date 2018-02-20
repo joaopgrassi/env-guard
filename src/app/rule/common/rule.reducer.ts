@@ -1,8 +1,8 @@
-import { AppAction, IAppStore } from "../../store/common/store.model";
-import { ActionReducer, createSelector, State } from "@ngrx/store";
-import { IRule } from "./rule-model";
-import * as fromActions from "./rule.actions";
-import { InitialState } from "@ngrx/store/src/models";
+import { AppAction, IAppStore } from '../../store/common/store.model';
+import { ActionReducer, createSelector, State } from '@ngrx/store';
+import { IRule } from './rule-model';
+import * as fromActions from './rule.actions';
+import { InitialState } from '@ngrx/store/src/models';
 
 export type RuleListState = IRule[];
 
@@ -14,9 +14,11 @@ export const initialState: RuleListState = [];
  * @param {AppAction<IRule>} action
  * @returns {any}
  */
-export function ruleReducer(state = initialState, action: fromActions.RuleActions) {
+export function ruleReducer(
+  state = initialState,
+  action: fromActions.RuleActions
+) {
   switch (action.type) {
-
     case fromActions.LOAD_RULES_SUCCESS: {
       return action.payload;
     }
@@ -47,7 +49,7 @@ export const getRuleByIdSelector = id =>
   createSelector(
     (state: IAppStore) => state.rules,
     allRules => {
-      if (id === "add") {
+      if (id === 'add') {
         return {};
       }
 

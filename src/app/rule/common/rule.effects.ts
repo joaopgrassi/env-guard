@@ -1,14 +1,14 @@
-import { Injectable } from "@angular/core";
-import { Actions, Effect } from "@ngrx/effects";
-import { Store } from "@ngrx/store";
-import "rxjs/add/operator/switchMap";
-import "rxjs/add/operator/withLatestFrom";
-import "rxjs/add/operator/map";
+import { Injectable } from '@angular/core';
+import { Actions, Effect } from '@ngrx/effects';
+import { Store } from '@ngrx/store';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/withLatestFrom';
+import 'rxjs/add/operator/map';
 
-import * as RuleActions from "./rule.actions";
-import { RuleService } from "./rule.service";
-import { AppAction, IAppStore } from "../../store/common/store.model";
-import { IRule } from "./rule-model";
+import * as RuleActions from './rule.actions';
+import { RuleService } from './rule.service';
+import { AppAction, IAppStore } from '../../store/common/store.model';
+import { IRule } from './rule-model';
 
 @Injectable()
 export class RuleEffects {

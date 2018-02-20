@@ -18,14 +18,14 @@ import * as RuleActions from '../common/';
   styleUrls: ['./rule-dashboard.component.css']
 })
 export class RuleDashboardComponent implements OnInit {
-
   displayedColumns = ['name', 'operator', 'url', 'icon', 'actions'];
   dataSource: RulesDataSource;
 
-  constructor(private router: Router,
-              private notificationService: NotificationService,
-              private store: Store<IAppStore>) {
-  }
+  constructor(
+    private router: Router,
+    private notificationService: NotificationService,
+    private store: Store<IAppStore>
+  ) {}
 
   ngOnInit() {
     this.dataSource = new RulesDataSource(this.store);
@@ -83,6 +83,5 @@ export class RulesDataSource extends DataSource<IRule> {
     return this.store.select(r => r.rules);
   }
 
-  disconnect() {
-  }
+  disconnect() {}
 }

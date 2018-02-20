@@ -1,14 +1,14 @@
-import { Component } from "@angular/core";
-import { Store } from "@ngrx/store";
+import { Component } from '@angular/core';
+import { Store } from '@ngrx/store';
 
-import * as RuleActions from "./rule/common/rule.actions";
-import { IAppStore } from "./store";
-import { MatIconRegistry } from "@angular/material";
-import { DomSanitizer } from "@angular/platform-browser";
+import * as RuleActions from './rule/common/rule.actions';
+import { IAppStore } from './store';
+import { MatIconRegistry } from '@angular/material';
+import { DomSanitizer } from '@angular/platform-browser';
 
 @Component({
-  selector: "app-root",
-  templateUrl: "./app.component.html"
+  selector: 'app-root',
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
   constructor(
@@ -25,15 +25,15 @@ export class AppComponent {
    */
   private registerIcons() {
     this.iconRegistry.addSvgIcon(
-      "github",
+      'github',
       this.sanitizer.bypassSecurityTrustResourceUrl(
-        "../assets/icons/mark-github.svg"
+        '../assets/icons/mark-github.svg'
       )
     );
     this.iconRegistry.addSvgIcon(
-      "chrome",
+      'chrome',
       this.sanitizer.bypassSecurityTrustResourceUrl(
-        "../assets/icons/chrome.svg"
+        '../assets/icons/chrome.svg'
       )
     );
   }

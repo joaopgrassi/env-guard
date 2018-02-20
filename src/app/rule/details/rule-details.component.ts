@@ -9,7 +9,13 @@ import { NotificationService } from '../../common';
 import { IAppStore } from '../../store';
 
 import {
-  getRuleByIdSelector, IIcon, IRule, IRuleBanner, OperatorRules, Rule, RuleBanner,
+  getRuleByIdSelector,
+  IIcon,
+  IRule,
+  IRuleBanner,
+  OperatorRules,
+  Rule,
+  RuleBanner,
   RuleService
 } from '../common/';
 
@@ -30,13 +36,14 @@ export class RuleDetailsComponent implements OnInit {
   useBanner: boolean;
   formReady: boolean;
 
-  constructor(private activateRoute: ActivatedRoute,
-              private router: Router,
-              private formBuilder: FormBuilder,
-              private ruleService: RuleService,
-              private notificationService: NotificationService,
-              private store: Store<IAppStore>) {
-  }
+  constructor(
+    private activateRoute: ActivatedRoute,
+    private router: Router,
+    private formBuilder: FormBuilder,
+    private ruleService: RuleService,
+    private notificationService: NotificationService,
+    private store: Store<IAppStore>
+  ) {}
 
   ngOnInit() {
     this.activateRoute.paramMap.subscribe(p => {
@@ -85,8 +92,7 @@ export class RuleDetailsComponent implements OnInit {
    * Saves or updates a rule
    */
   save() {
-
-    if (!this.ruleForm.valid){
+    if (!this.ruleForm.valid) {
       return;
     }
     const rule = new Rule(
@@ -95,7 +101,8 @@ export class RuleDetailsComponent implements OnInit {
       this.ruleForm.value.url,
       this.ruleForm.value.operator,
       this.ruleForm.value.title,
-      this.getIcon(this.ruleForm.value.icon));
+      this.getIcon(this.ruleForm.value.icon)
+    );
 
     if (this.useBanner) {
       rule.addRuleBanner(this.ruleForm.get('banner').value);
@@ -146,7 +153,7 @@ export class RuleDetailsComponent implements OnInit {
       url: [currentRule.url, [Validators.required]],
       operator: [currentRule.operator, [Validators.required]],
       title: [currentRule.title],
-      icon: [(currentRule.icon) ? currentRule.icon.key : 'none']
+      icon: [currentRule.icon ? currentRule.icon.key : 'none']
     });
 
     if (this.currentRule.banner) {
