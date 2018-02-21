@@ -29,7 +29,7 @@ export function ruleReducer(
     case fromActions.SAVE_RULE:
       return state.map(item => {
         return item.id === action.payload.id
-          ? Object.assign(item, action.payload)
+          ? {...item, ...action.payload}
           : item;
       });
 
