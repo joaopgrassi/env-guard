@@ -16,8 +16,7 @@
                 <mat-form-field class="input-full">
                   <input matInput placeholder="Rule alias *" formControlName="name">
                   <mat-error *ngIf="ruleForm.controls.name.errors">
-                    Rule alias is
-                    <strong>required</strong>
+                    Rule alias is <strong>required</strong>
                   </mat-error>
                 </mat-form-field>
               </div>
@@ -35,8 +34,7 @@
                 <mat-form-field class="input-full">
                   <input matInput placeholder="URL *" formControlName="url">
                   <mat-error *ngIf="ruleForm.controls.url.errors">
-                    URL is
-                    <strong>required</strong>
+                    URL is <strong>required</strong>
                   </mat-error>
                 </mat-form-field>
               </div>
@@ -55,11 +53,13 @@
                 <mat-form-field>
                   <mat-select class="input-full" placeholder="Tab icon" formControlName="icon" #select="matSelect">
                     <mat-select-trigger>
-                      <img *ngIf="select.selected && select.selected.value != 'none'" class="md-img-select mat-icon-16x" src="assets/{{getIcon(select.selected?.value)?.path}}"
-                        alt="{{ select.selected?.viewValue }}"> {{ select.selected?.viewValue }}
+                      <img *ngIf="select.selected && select.selected.value != 'none'" class="md-img-select mat-icon-16x"
+                           src="assets/{{getIcon(select.selected?.value)?.path}}"
+                           alt="{{ select.selected?.viewValue }}"> {{ select.selected?.viewValue }}
                     </mat-select-trigger>
                     <mat-option layout="row" layout-align="start center" *ngFor="let icon of icons" [value]="icon.key">
-                      <img class="md-img-select mat-icon-16x" *ngIf="icon.path" src="assets/{{icon.path}}" alt="{{ icon.name }}"> {{ icon.name }}
+                      <img class="md-img-select mat-icon-16x" *ngIf="icon.path" src="assets/{{icon.path}}"
+                           alt="{{ icon.name }}"> {{ icon.name }}
                     </mat-option>
                   </mat-select>
                 </mat-form-field>
@@ -70,7 +70,10 @@
             <!-- banner -->
             <div class="row mb-3">
               <div class="col-lg-5 col-md-3 col-sm-12">
-                <mat-checkbox color="primary" [(ngModel)]="useBanner" [ngModelOptions]="{standalone: true}" (change)="toggleAddBannerCheckbox()">
+                <mat-checkbox color="primary"
+                              [(ngModel)]="useBanner"
+                              [ngModelOptions]="{standalone: true}"
+                              (change)="toggleAddBannerCheckbox()">
                   Add banner to site?
                 </mat-checkbox>
               </div>
@@ -103,7 +106,8 @@
       </mat-card-content>
     </form>
     <div class="mt-4">
-      <button data-spec-save mat-raised-button color="primary" [disabled]="!ruleForm.valid" (click)="save()">Save</button>
+      <button data-spec-save mat-raised-button color="primary" [disabled]="!ruleForm.valid" (click)="save()">Save
+      </button>
       <button data-spec-cancel mat-raised-button (click)="cancel()">Cancel</button>
     </div>
   </mat-card>

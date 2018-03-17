@@ -12,11 +12,10 @@ import { IRule } from './rule-model';
 
 @Injectable()
 export class RuleEffects {
-  constructor(
-    private actions$: Actions,
-    private store$: Store<IAppStore>,
-    private ruleService: RuleService
-  ) {}
+  constructor(private actions$: Actions,
+              private store$: Store<IAppStore>,
+              private ruleService: RuleService) {
+  }
 
   /**
    * Saves the rules to the browser storage

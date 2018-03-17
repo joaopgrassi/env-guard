@@ -5,21 +5,21 @@ import { AppMaterialModule } from '../../app-material.module';
 import { By } from '@angular/platform-browser';
 import { Store } from '@ngrx/store';
 
-import { AppStore } from '../../store/app.store';
+import { AppStore } from '../../store';
 import {
   MockedRuleBrowserStorageService,
   MockedNotificationService,
   MockedRouter
-} from '../../../_mocks/mocks';
+} from '../../../_mocks';
 
 import { RuleDashboardComponent } from './rule-dashboard.component';
-import { NotificationService } from '../../common/notification.service';
+import { NotificationService } from '../../common';
 
-import { Icon, IIcon, IRule, Rule } from '../common/rule-model';
+import { Icon, IIcon, IRule, Rule } from '../common';
 import { RuleBrowserStorageService, RuleService } from '../common/';
 
 import * as RuleActions from '../common/';
-import { IAppStore } from '../../store/common/store.model';
+import { IAppStore } from '../../store';
 
 class MockedRuleService {
   public static mockedIcons: IIcon[] = [
@@ -47,18 +47,15 @@ class MockedRuleService {
     new Rule('ABC', 'Development', 'http://dev.com', 'Exact', '', void 0)
   ];
 
-  getAllRules$: Observable<IRule[]> = Observable.of(
-    MockedRuleService.mockedRules
-  );
-  getAllDefaultIcons$: Observable<IIcon[]> = Observable.of(
-    MockedRuleService.mockedIcons
-  );
+  getAllRules$: Observable<IRule[]> = Observable.of(MockedRuleService.mockedRules);
+  getAllDefaultIcons$: Observable<IIcon[]> = Observable.of(MockedRuleService.mockedIcons);
 
   getDefaultIcons(): Observable<IIcon[]> {
     return this.getAllDefaultIcons$;
   }
 
-  saveRules(rules: IRule[]) {}
+  saveRules(rules: IRule[]) {
+  }
 
   getAllRules(): Observable<IRule[]> {
     return this.getAllRules$;
@@ -78,10 +75,7 @@ describe('RuleDashboardComponent', () => {
         providers: [
           { provide: Router, useClass: MockedRouter },
           { provide: NotificationService, useClass: MockedNotificationService },
-          {
-            provide: RuleBrowserStorageService,
-            useClass: MockedRuleBrowserStorageService
-          },
+          { provide: RuleBrowserStorageService, useClass: MockedRuleBrowserStorageService },
           { provide: RuleService, useClass: MockedRuleService }
         ],
         declarations: [RuleDashboardComponent]
@@ -99,9 +93,7 @@ describe('RuleDashboardComponent', () => {
     spyOn(router, 'navigate').and.stub();
 
     // load data into the store before test starts
-    store.dispatch(
-      new RuleActions.LoadRuleSuccess(MockedRuleService.mockedRules)
-    );
+    store.dispatch(new RuleActions.LoadRuleSuccess(MockedRuleService.mockedRules));
 
     fixture.detectChanges();
   });
@@ -120,9 +112,7 @@ describe('RuleDashboardComponent', () => {
   it('should show rule without icon on dashboard', () => {
     fixture.detectChanges();
 
-    const iconCells = fixture.nativeElement.querySelectorAll(
-      '.mat-cell.cdk-column-icon'
-    );
+    const iconCells = fixture.nativeElement.querySelectorAll('.mat-cell.cdk-column-icon');
     expect(iconCells[2].innerText).toBe('');
   });
 
@@ -157,9 +147,7 @@ describe('RuleDashboardComponent', () => {
     );
     tableDuplicateButton.triggerEventHandler('click', null);
 
-    expect(
-      (RuleActions.AddRule as any).calls.mostRecent().args[0].name
-    ).toEqual(expectedName);
+    expect((RuleActions.AddRule as any).calls.mostRecent().args[0].name).toEqual(expectedName);
   });
 
   it('delete rule - should dispatch delete action with correct rule', () => {

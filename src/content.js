@@ -1,5 +1,5 @@
 (() => {
-  const rule = null;
+  let rule = null;
   const envGuardBanner = 'envGuardBanner';
 
   /**
@@ -92,7 +92,7 @@
       return;
     }
 
-    const allRules = storageItems.envGuard;
+    let allRules = storageItems.envGuard;
 
     const applyRules = () => {
       for (let i = 0; i < allRules.length; i++) {

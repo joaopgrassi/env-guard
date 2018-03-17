@@ -21,7 +21,7 @@ export class AppComponent {
   }
 
   /**
-   * Regiters custom items globaly to be used with mat-icon.
+   * Registers custom items globally to be used with mat-icon.
    */
   private registerIcons() {
     this.iconRegistry.addSvgIcon(

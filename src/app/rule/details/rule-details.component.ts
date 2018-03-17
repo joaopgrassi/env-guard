@@ -36,14 +36,13 @@ export class RuleDetailsComponent implements OnInit {
   useBanner: boolean;
   formReady: boolean;
 
-  constructor(
-    private activateRoute: ActivatedRoute,
-    private router: Router,
-    private formBuilder: FormBuilder,
-    private ruleService: RuleService,
-    private notificationService: NotificationService,
-    private store: Store<IAppStore>
-  ) {}
+  constructor(private activateRoute: ActivatedRoute,
+              private router: Router,
+              private formBuilder: FormBuilder,
+              private ruleService: RuleService,
+              private notificationService: NotificationService,
+              private store: Store<IAppStore>) {
+  }
 
   ngOnInit() {
     this.activateRoute.paramMap.subscribe(p => {

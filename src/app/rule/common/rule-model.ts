@@ -83,15 +83,13 @@ export class Rule implements IRule {
    * @param {Icon} icon
    * @param {IRuleBanner} banner
    */
-  constructor(
-    id: string,
-    name: string,
-    url: string,
-    operator: string,
-    title: string,
-    icon: Icon,
-    banner?: IRuleBanner
-  ) {
+  constructor(id: string,
+              name: string,
+              url: string,
+              operator: string,
+              title: string,
+              icon: Icon,
+              banner?: IRuleBanner) {
     this.id = id || uuid();
     this.name = name;
     this.url = url;
@@ -108,6 +106,7 @@ export class Rule implements IRule {
 
 export class StorageRules {
   envGuard: IRule[];
+
   constructor(rules: IRule[]) {
     this.envGuard = rules;
   }

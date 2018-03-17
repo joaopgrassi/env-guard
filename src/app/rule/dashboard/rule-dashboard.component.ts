@@ -6,8 +6,8 @@ import 'rxjs/add/observable/of';
 import { Store } from '@ngrx/store';
 import { v4 as uuid } from 'uuid';
 
-import { IAppStore } from '../../store/common/store.model';
-import { NotificationService } from '../../common/notification.service';
+import { IAppStore } from '../../store';
+import { NotificationService } from '../../common';
 
 import { IRule } from '../common/';
 import * as RuleActions from '../common/';
@@ -21,11 +21,10 @@ export class RuleDashboardComponent implements OnInit {
   displayedColumns = ['name', 'operator', 'url', 'icon', 'actions'];
   dataSource: RulesDataSource;
 
-  constructor(
-    private router: Router,
-    private notificationService: NotificationService,
-    private store: Store<IAppStore>
-  ) {}
+  constructor(private router: Router,
+              private notificationService: NotificationService,
+              private store: Store<IAppStore>) {
+  }
 
   ngOnInit() {
     this.dataSource = new RulesDataSource(this.store);
@@ -43,8 +42,7 @@ export class RuleDashboardComponent implements OnInit {
    * @param {IRule} rule
    */
   edit(rule: IRule) {
-    this.router.navigate([`rules/${rule.id}`]);
-  }
+    this.router.navigate([`rules/${rule.id}`]);  }
 
   /**
    * Duplicate an existing rule
@@ -83,5 +81,6 @@ export class RulesDataSource extends DataSource<IRule> {
     return this.store.select(r => r.rules);
   }
 
-  disconnect() {}
+  disconnect() {
+  }
 }
