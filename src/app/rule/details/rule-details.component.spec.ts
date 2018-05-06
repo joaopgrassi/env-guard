@@ -245,15 +245,15 @@ describe('RuleDetailsComponent', () => {
     spyOn(RuleActions, 'SaveRule').and.callThrough();
     spyOn(router, 'navigate').and.callThrough();
 
-    fixture.autoDetectChanges();
-
     const expectedRule = MockedRuleService.mockedRules[0];
     activateRoute.testParamMap = { id: expectedRule.id };
+
+    fixture.detectChanges();
 
     // Change the name of the rule
     expectedRule.name = `${expectedRule.name} - Edited`;
     component.ruleForm.get('name').setValue(expectedRule.name);
-    fixture.detectChanges();
+
 
     // Act
     const saveButton = fixture.nativeElement.querySelector(
