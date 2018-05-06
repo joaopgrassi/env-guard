@@ -12,7 +12,6 @@ import { MockedRuleBrowserStorageService, MockedNotificationService, MockedRoute
 
 import { HeaderComponent } from './_layout/header.component';
 import { AppComponent } from './app.component';
-import { RuleActions } from './rule/common/rule.actions';
 import { RuleBrowserStorageService, RuleService } from './rule/common/';
 import { Icon, IIcon, IRule, Rule } from './rule/common/rule-model';
 
@@ -41,7 +40,6 @@ describe('AppComponent', () => {
       schemas: [ NO_ERRORS_SCHEMA ],
       providers: [
         { provide: Router, useClass: MockedRouter },
-        { provide: RuleActions, useValue: new RuleActions() },
         { provide: NotificationService, useClass: MockedNotificationService },
         { provide: RuleBrowserStorageService, useClass: MockedRuleBrowserStorageService },
         { provide: RuleService, useClass: MockedRuleService }

@@ -9,9 +9,17 @@ import { NotificationService } from '../../common';
 import { IAppStore } from '../../store';
 
 import {
-  getRuleByIdSelector, IIcon, IRule, IRuleBanner, OperatorRules, Rule, RuleActions, RuleBanner,
+  getRuleByIdSelector,
+  IIcon,
+  IRule,
+  IRuleBanner,
+  OperatorRules,
+  Rule,
+  RuleBanner,
   RuleService
 } from '../common/';
+
+import * as RuleActions from '../common/';
 
 @Component({
   selector: 'app-rule-details',
@@ -32,7 +40,6 @@ export class RuleDetailsComponent implements OnInit {
               private router: Router,
               private formBuilder: FormBuilder,
               private ruleService: RuleService,
-              private ruleActions: RuleActions,
               private notificationService: NotificationService,
               private store: Store<IAppStore>) {
   }
@@ -84,8 +91,7 @@ export class RuleDetailsComponent implements OnInit {
    * Saves or updates a rule
    */
   save() {
-
-    if (!this.ruleForm.valid){
+    if (!this.ruleForm.valid) {
       return;
     }
     const rule = new Rule(
@@ -94,20 +100,21 @@ export class RuleDetailsComponent implements OnInit {
       this.ruleForm.value.url,
       this.ruleForm.value.operator,
       this.ruleForm.value.title,
-      this.getIcon(this.ruleForm.value.icon));
+      this.getIcon(this.ruleForm.value.icon)
+    );
 
     if (this.useBanner) {
       rule.addRuleBanner(this.ruleForm.get('banner').value);
     }
 
     if (this.newRule) {
-      this.store.dispatch(this.ruleActions.addRule(rule));
+      this.store.dispatch(new RuleActions.AddRule(rule));
     } else {
-      this.store.dispatch(this.ruleActions.saveRule(rule));
+      this.store.dispatch(new RuleActions.SaveRule(rule));
     }
 
     // TODO: This should be refactored and listen to ActionSubject
-    this.store.dispatch(this.ruleActions.syncLocalStorage());
+    this.store.dispatch(new RuleActions.SyncLocalStorage());
 
     this.goToDashboard();
     this.notificationService.notifySuccess('Rule Saved!');
@@ -145,7 +152,7 @@ export class RuleDetailsComponent implements OnInit {
       url: [currentRule.url, [Validators.required]],
       operator: [currentRule.operator, [Validators.required]],
       title: [currentRule.title],
-      icon: [(currentRule.icon) ? currentRule.icon.key : 'none']
+      icon: [currentRule.icon ? currentRule.icon.key : 'none']
     });
 
     if (this.currentRule.banner) {

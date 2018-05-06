@@ -16,7 +16,6 @@
       ],
       "index": "index.html",
       "baseHref": "index.html",
-      "baseHref": "index.html",
       "main": "main.ts",
       "polyfills": "polyfills.ts",
       "test": "test.ts",

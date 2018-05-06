@@ -1,65 +1,56 @@
-import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
-import { AppAction } from '../../store/common/store.model';
 import { IRule } from './rule-model';
 
-@Injectable()
-export class RuleActions {
+export const SYNC_LOCAL_STORAGE = '[Rule] Sync Local Storage';
+export const SYNC_LOCAL_STORAGE_SUCCESS = '[Rule] Sync Local Storage Success';
+export const LOAD_RULES = '[Rule] Load Rules';
+export const LOAD_RULES_SUCCESS = '[Rules] Load Rules Success';
 
-  static SYNC_LOCAL_STORAGE = '[Rule] Sync Local Storage';
-  static SYNC_LOCAL_STORAGE_SUCCESS = '[Rule] Sync Local Storage Success';
-  static LOAD_RULES = '[Rule] Load Rules';
-  static LOAD_RULES_SUCCESS = '[Rules] Load Rules Success';
+export const SAVE_RULE = '[Rule] Save Rule';
+export const ADD_RULE = '[Rule] Add Rule';
+export const DELETE_RULE = '[Rule] Delete Rule';
 
-  static GET_RULE = '[Rule] Get Rule';
-  static GET_RULE_SUCCESS = '[Rule] Get Rule Success';
-  static SAVE_RULE = '[Rule] Save Rule';
-  static ADD_RULE = '[Rule] Add Rule';
-  static DELETE_RULE = '[Rule] Delete Rule';
-
-  syncLocalStorage(): Action {
-    return {
-      type: RuleActions.SYNC_LOCAL_STORAGE
-    };
-  }
-
-  syncLocalStorageSuccess(): Action {
-    return {
-      type: RuleActions.SYNC_LOCAL_STORAGE_SUCCESS
-    };
-  }
-
-  loadRules(): Action {
-    return {
-      type: RuleActions.LOAD_RULES
-    };
-  }
-
-  loadRuleSuccess(rules: IRule[]): AppAction<IRule[]> {
-    return {
-      type: RuleActions.LOAD_RULES_SUCCESS,
-      payload: rules
-    };
-  }
-
-  saveRule(rule): AppAction<IRule> {
-    return {
-      type: RuleActions.SAVE_RULE,
-      payload: rule
-    };
-  }
-
-  addRule(rule): AppAction<IRule> {
-    return {
-      type: RuleActions.ADD_RULE,
-      payload: rule
-    };
-  }
-
-  deleteRule(rule): AppAction<IRule> {
-    return {
-      type: RuleActions.DELETE_RULE,
-      payload: rule
-    };
-  }
+export class SyncLocalStorage implements Action {
+  readonly type = SYNC_LOCAL_STORAGE;
 }
+
+export class SyncLocalStorageSuccess implements Action {
+  readonly type = SYNC_LOCAL_STORAGE_SUCCESS;
+}
+
+export class LoadRules implements Action {
+  readonly type = LOAD_RULES;
+}
+
+export class LoadRuleSuccess implements Action {
+  readonly type = LOAD_RULES_SUCCESS;
+
+  constructor(public payload: IRule[]) {}
+}
+
+export class SaveRule implements Action {
+  readonly type = SAVE_RULE;
+
+  constructor(public payload: IRule) {}
+}
+
+export class AddRule implements Action {
+  readonly type = ADD_RULE;
+
+  constructor(public payload: IRule) {}
+}
+
+export class DeleteRule implements Action {
+  readonly type = DELETE_RULE;
+
+  constructor(public payload: IRule) {}
+}
+
+export type RuleActions =
+  | AddRule
+  | SaveRule
+  | DeleteRule
+  | LoadRules
+  | LoadRuleSuccess
+  | SyncLocalStorage
+  | SyncLocalStorageSuccess;

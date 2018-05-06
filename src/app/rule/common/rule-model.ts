@@ -49,7 +49,7 @@ export class RuleBanner implements IRuleBanner {
 
   constructor(text: string, icon: Icon, textColor: string = '#FFF') {
     this.text = text;
-    this.bgColor = (icon ? icon.iconBaseColor : '#EB1342'); // default is empty is red.
+    this.bgColor = icon ? icon.iconBaseColor : '#EB1342'; // default is empty is red.
     this.textColor = textColor;
   }
 }
@@ -83,7 +83,13 @@ export class Rule implements IRule {
    * @param {Icon} icon
    * @param {IRuleBanner} banner
    */
-  constructor(id: string, name: string, url: string, operator: string, title: string, icon: Icon, banner?: IRuleBanner) {
+  constructor(id: string,
+              name: string,
+              url: string,
+              operator: string,
+              title: string,
+              icon: Icon,
+              banner?: IRuleBanner) {
     this.id = id || uuid();
     this.name = name;
     this.url = url;
@@ -100,7 +106,8 @@ export class Rule implements IRule {
 
 export class StorageRules {
   envGuard: IRule[];
-  constructor (rules: IRule[]) {
+
+  constructor(rules: IRule[]) {
     this.envGuard = rules;
   }
 }

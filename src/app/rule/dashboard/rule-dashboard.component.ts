@@ -6,10 +6,11 @@ import 'rxjs/add/observable/of';
 import { Store } from '@ngrx/store';
 import { v4 as uuid } from 'uuid';
 
-import { IAppStore } from '../../store/common/store.model';
-import { NotificationService } from '../../common/notification.service';
+import { IAppStore } from '../../store';
+import { NotificationService } from '../../common';
 
-import { IRule, RuleActions } from '../common/';
+import { IRule } from '../common/';
+import * as RuleActions from '../common/';
 
 @Component({
   selector: 'app-rule-dashboard',
@@ -17,12 +18,10 @@ import { IRule, RuleActions } from '../common/';
   styleUrls: ['./rule-dashboard.component.css']
 })
 export class RuleDashboardComponent implements OnInit {
-
   displayedColumns = ['name', 'operator', 'url', 'icon', 'actions'];
   dataSource: RulesDataSource;
 
   constructor(private router: Router,
-              private ruleActions: RuleActions,
               private notificationService: NotificationService,
               private store: Store<IAppStore>) {
   }
@@ -43,8 +42,7 @@ export class RuleDashboardComponent implements OnInit {
    * @param {IRule} rule
    */
   edit(rule: IRule) {
-    this.router.navigate([`rules/${rule.id}`]);
-  }
+    this.router.navigate([`rules/${rule.id}`]);  }
 
   /**
    * Duplicate an existing rule
@@ -54,10 +52,10 @@ export class RuleDashboardComponent implements OnInit {
     const copy = Object.assign({}, rule);
     copy.id = uuid();
     copy.name = `${rule.name} - Copy`;
-    this.store.dispatch(this.ruleActions.addRule(copy));
+    this.store.dispatch(new RuleActions.AddRule(copy));
 
     // TODO: This should be refactored and listen to ActionSubject
-    this.store.dispatch(this.ruleActions.syncLocalStorage());
+    this.store.dispatch(new RuleActions.SyncLocalStorage());
 
     this.notificationService.notifySuccess('Rule duplicated!');
   }
@@ -67,10 +65,10 @@ export class RuleDashboardComponent implements OnInit {
    * @param {IRule} rule
    */
   remove(rule: IRule) {
-    this.store.dispatch(this.ruleActions.deleteRule(rule));
+    this.store.dispatch(new RuleActions.DeleteRule(rule));
 
     // TODO: This should be refactored and listen to ActionSubject
-    this.store.dispatch(this.ruleActions.syncLocalStorage());
+    this.store.dispatch(new RuleActions.SyncLocalStorage());
   }
 }
 

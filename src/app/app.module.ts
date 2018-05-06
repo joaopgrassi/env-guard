@@ -12,14 +12,19 @@ import { HeaderComponent } from './_layout/';
 import { NotificationService, BrowserStorageProvider } from './common';
 import { AppStore } from './store/';
 
-import { RuleDashboardComponent, RuleDetailsComponent, RuleService, RuleBrowserStorageService, RuleActions } from './rule';
+import {
+  RuleDashboardComponent,
+  RuleDetailsComponent,
+  RuleService,
+  RuleBrowserStorageService
+} from './rule';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     RuleDashboardComponent,
-    RuleDetailsComponent,
+    RuleDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -30,16 +35,15 @@ import { RuleDashboardComponent, RuleDetailsComponent, RuleService, RuleBrowserS
     AppMaterialModule,
     FlexLayoutModule,
     BrowserAnimationsModule,
-    AppStore,
+    AppStore
   ],
   providers: [
-    { provide: 'Chrome',  useValue: chrome },
+    { provide: 'Chrome', useValue: chrome },
     RuleService,
     NotificationService,
     RuleBrowserStorageService,
-    RuleActions,
     BrowserStorageProvider
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
