@@ -1,7 +1,7 @@
 <img src="envguard_logo.png" alt="env-guard" width="390">
 
-[![Build Status](https://travis-ci.org/joaopgrassi/env-guard.svg?branch=master)](https://travis-ci.org/joaopgrassi/env-guard)
-[![Coverage Status](https://coveralls.io/repos/github/joaopgrassi/env-guard/badge.svg?branch=master)](https://coveralls.io/github/joaopgrassi/env-guard?branch=master)
+[![Build Status](https://travis-ci.org/joaopgrassi/env-guard.svg?branch=main)](https://travis-ci.org/joaopgrassi/env-guard)
+[![Coverage Status](https://coveralls.io/repos/github/joaopgrassi/env-guard/badge.svg?branch=main)](https://coveralls.io/github/joaopgrassi/env-guard?branch=main)
 [![MIT Licence](https://badges.frapsoft.com/os/mit/mit.svg?v=103)](https://opensource.org/licenses/mit-license.php)
 
 No more mistakes while messing around 'production like' environments.
